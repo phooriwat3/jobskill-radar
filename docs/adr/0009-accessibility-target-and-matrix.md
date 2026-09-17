@@ -5,8 +5,8 @@ Date: 2026-09-17
 Owners: UX/accessibility owner, product owner, architecture owner
 Deciders: Accessibility and product owners; named individuals not assigned
 Target package: WP-02
-Related requirements: A11Y-001 through A11Y-006
-Related risks: R-010, R-013
+Related requirements: [A11Y-001](../product/requirements.md#a11y-001), [A11Y-002](../product/requirements.md#a11y-002), [A11Y-003](../product/requirements.md#a11y-003), [A11Y-004](../product/requirements.md#a11y-004), [A11Y-005](../product/requirements.md#a11y-005), [A11Y-006](../product/requirements.md#a11y-006)
+Related risks: [R-010](../risks/risk-register.md#r-010), [R-013](../risks/risk-register.md#r-013)
 Related ADRs: [ADR-0001](0001-frontend-workspace-and-tooling.md), [ADR-0002](0002-local-dashboard-packaging.md)
 Evidence links: [ADR template](template.md), [ADR index](README.md), [Accessibility plan](../quality/accessibility-plan.md), [Risk register](../risks/risk-register.md)
 

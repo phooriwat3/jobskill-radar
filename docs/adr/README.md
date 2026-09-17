@@ -31,7 +31,7 @@ requirements/risks.
 | [ADR-0003](0003-local-data-model-and-migrations.md) | Local data model, IDs, offsets, storage, and migrations | Proposed | Invariants, browser behavior, migration/backup fixtures, export and performance evidence | WP-02 |
 | [ADR-0004](0004-bilingual-ontology-governance.md) | Bilingual ontology, aliases, distinctions, and governance | Proposed | Representative samples, ambiguity review, domain capacity, versioning, provenance | WP-04 |
 | [ADR-0005](0005-corpus-and-accuracy-gates.md) | Corpus annotation and accuracy release gates | Proposed | Permitted corpus, annotation trial, baseline slices, uncertainty, user-harm analysis | WP-04 |
-| [ADR-0006](0006-pre-sync-interchange.md) | Export/import interchange before cloud sync | Proposed | Backup need, privacy/schema risks, round-trip/security prototype, support cost | WP-02/WP-05 |
+| [ADR-0006](0006-pre-sync-interchange.md) | Export-only MVP; separately approved future import/interchange before cloud sync | Proposed | Backup need, privacy/schema risks, round-trip/security prototype, invalid-import testing, support cost | WP-02/WP-05 |
 | [ADR-0007](0007-backend-runtime-versions.md) | Optional Java 21 and Spring Boot 3.x runtime line | Proposed | Current official support, compatibility/BOM, advisories, PostgreSQL/deployment evidence | WP-06 |
 | [ADR-0008](0008-cloud-authentication.md) | Optional cloud authentication and session model | Proposed | Topology, threat model, identity/privacy, recovery/deletion, authorization prototype | WP-06 |
 | [ADR-0009](0009-accessibility-target-and-matrix.md) | Accessibility conformance target and verification matrix | Proposed | Distribution, stakeholder/legal guidance, browsers, assistive technology, review capacity | WP-02 |

@@ -5,8 +5,8 @@ Date: 2026-09-17
 Owners: Analysis lead, evaluation lead, privacy owner
 Deciders: Analysis and product owners; named individuals not assigned
 Target package: WP-04
-Related requirements: FR-007, FR-009, FR-010, ACC-001, ACC-004, ACC-006, PRIV-006
-Related risks: R-004, R-005, R-014
+Related requirements: [FR-007](../product/requirements.md#fr-007), [FR-009](../product/requirements.md#fr-009), [FR-010](../product/requirements.md#fr-010), [ACC-001](../product/requirements.md#acc-001), [ACC-004](../product/requirements.md#acc-004), [ACC-006](../product/requirements.md#acc-006), [PRIV-006](../product/requirements.md#priv-006)
+Related risks: [R-004](../risks/risk-register.md#r-004), [R-005](../risks/risk-register.md#r-005), [R-014](../risks/risk-register.md#r-014)
 Related ADRs: [ADR-0003](0003-local-data-model-and-migrations.md), [ADR-0005](0005-corpus-and-accuracy-gates.md)
 Evidence links: [ADR template](template.md), [ADR index](README.md), [Glossary](../product/glossary.md), [Accuracy plan](../quality/accuracy-evaluation-plan.md)
 

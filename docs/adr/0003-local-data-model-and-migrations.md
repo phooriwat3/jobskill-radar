@@ -5,8 +5,8 @@ Date: 2026-09-17
 Owners: Architecture owner, dashboard lead, analysis lead
 Deciders: Architecture owner and privacy owner; named individuals not assigned
 Target package: WP-02
-Related requirements: FR-004, FR-005, FR-008, FR-009, FR-010, FR-013, NFR-003, NFR-005
-Related risks: R-003, R-006, R-012
+Related requirements: [FR-004](../product/requirements.md#fr-004), [FR-005](../product/requirements.md#fr-005), [FR-008](../product/requirements.md#fr-008), [FR-009](../product/requirements.md#fr-009), [FR-010](../product/requirements.md#fr-010), [FR-013](../product/requirements.md#fr-013), [NFR-003](../product/requirements.md#nfr-003), [NFR-005](../product/requirements.md#nfr-005)
+Related risks: [R-003](../risks/risk-register.md#r-003), [R-006](../risks/risk-register.md#r-006), [R-012](../risks/risk-register.md#r-012)
 Related ADRs: [ADR-0002](0002-local-dashboard-packaging.md), [ADR-0006](0006-pre-sync-interchange.md)
 Evidence links: [Glossary](../product/glossary.md), [Requirements](../product/requirements.md), [Security/privacy baseline](../security/security-privacy-baseline.md)
 
@@ -16,10 +16,10 @@ The MVP needs local storage for original evidence, edits, derived analysis,
 corrections, collections, versions, exports, and deletion. Original evidence
 must remain distinct and recoverable. IndexedDB behavior, quotas,
 transactions, migrations, and export compatibility are not yet evidenced.
-The analysis contract is narrower: the analyzer reads only the exact saved
-job-text field, not URL/title or later edits, and evidence spans use
-zero-based, end-exclusive UTF-8 byte offsets plus a digest of that exact
-analysis text.
+The analysis contract is narrower: the analyzer reads only the exact
+immutable job-text value accepted when the job is saved, not URL/title or
+later metadata edits, and evidence spans use zero-based, end-exclusive UTF-8
+byte offsets plus the SHA-256 source digest of those exact bytes.
 
 ## Decision scope
 
@@ -47,17 +47,19 @@ and migration guarantees require independent evidence.
 
 ## Evidence required
 
-Define invariants, stable ID rules, exact analysis-text projection, UTF-8
-byte-offset/digest convention, transaction and interruption behavior, quota
-limits, migration/backup fixtures, export compatibility, performance
-prototype, and supported-browser results.
+Define invariants, stable ID rules, the exact immutable saved job-text
+projection, the UTF-8 byte-offset/SHA-256 source-digest convention,
+transaction and interruption behavior, quota limits, migration/backup
+fixtures, export compatibility, performance prototype, and supported-browser
+results.
 
 ## Decision
 
 Proposed only. The full schema, wrapper, and migration plan are not accepted
 in WP-01. The analysis-text and UTF-8 byte-offset rules in the glossary are
 the interim documentation contract; WP-02 may supersede them only through
-this ADR with evidence and a migration impact record.
+this ADR with evidence and a migration impact record. Later metadata edits
+are not analysis input.
 
 ## Consequences and tradeoffs
 
@@ -77,8 +79,8 @@ of byte offsets across supported runtimes.
 
 WP-02 records the data contract and migration matrix. WP-05 supplies fixtures
 for save, edit, correction, export, deletion, interrupted upgrade, recovery,
-and byte-offset/digest stability. WP-04 verifies that analyzer output uses
-only the declared analysis-text field.
+and byte-offset/source-digest stability. WP-04 verifies that analyzer output
+uses only the declared immutable saved job-text field.
 
 ## Rollback or revisit triggers
 

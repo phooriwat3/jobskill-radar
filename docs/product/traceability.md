@@ -1,7 +1,7 @@
 # Requirement Traceability
 
-Status: Draft - WP-01 source of truth  
-Date: 2026-09-17  
+Status: Draft - WP-01 source of truth
+Date: 2026-09-17
 Purpose: map every stable requirement to its responsible package, planned
 evidence, and WP-01 acceptance coverage.
 
@@ -22,7 +22,7 @@ requirement; it does not mean the product behavior is implemented or tested.
 | [FR-009](requirements.md#fr-009) | WP-04 | Repeated-mention and alias aggregation fixtures | WP01-AC-05, AC-10 |
 | [FR-010](requirements.md#fr-010) | WP-05 | Correction overlay and original-evidence immutability tests | WP01-AC-04, AC-05 |
 | [FR-011](requirements.md#fr-011) | WP-05 | Filter and comparison workflow tests | WP01-AC-02 |
-| [FR-012](requirements.md#fr-012) | WP-05 | Versioned JSON/CSV schema, escaping, and round-trip tests | WP01-AC-02, AC-11 |
+| [FR-012](requirements.md#fr-012) | WP-05 | Versioned JSON/CSV schema, escaping, and exported-file round-trip tests | WP01-AC-02, AC-11 |
 | [FR-013](requirements.md#fr-013) | WP-05 | Individual, collection, and all-data deletion tests | WP01-AC-04, AC-11 |
 | [FR-014](requirements.md#fr-014) | WP-06 | Multi-user authorization, deletion, version, and conflict tests | WP01-AC-06, AC-11 |
 | [FR-015](requirements.md#fr-015) | WP-07 | Consent, provider failure, evidence validation, and fallback tests | WP01-AC-06, AC-11 |

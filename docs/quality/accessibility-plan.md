@@ -61,7 +61,7 @@ and support evidence exist. The matrix must include at least:
 | Contrast/target size | Approved rule set after target selection | High-contrast and non-color interpretation | Status, required/preferred, correction state |
 | Zoom/reflow | Layout rule checks where available | Agreed viewport and browser zoom levels | Dashboard filters, evidence, comparison, export |
 | Mixed language | Character/overflow fixtures | Thai/English reading, long tokens, wrapping | Capture preview, snippets, canonical labels |
-| Errors/recovery | Required-field and error association checks | Actionable, non-sensitive recovery messages | Storage failure, invalid import, deletion |
+| Errors/recovery | Required-field and error association checks | Actionable, non-sensitive recovery messages | Storage failure, deletion; import errors only after separate approval |
 | Future consent | Label/state checks | Purpose-specific opt-in and denial path | Sync/AI consent if approved |
 
 ## Manual review protocol

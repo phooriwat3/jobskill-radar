@@ -1,6 +1,7 @@
 # JobSkillRadar Master Plan
 
-Status: Active - WP-01 approved; corrective review in progress
+Status: Active - WP-01 approved; corrective amendment recorded; independent
+re-review required
 Repository path: C:\Projects\JobSkillRadar
 Proposed product/repository slug: jobskill-radar
 Date: 2026-09-17
@@ -11,8 +12,10 @@ Last repository inspection: 2026-09-17
 WP-01 was approved for implementation by the user instruction recorded in
 this Codex session on 2026-09-17. The repository does not record a named
 approver; no person is invented here. The implementation baseline is commit
-cd230e8, and the corrective work described in the WP-01 acceptance report is
-the current uncommitted documentation change set.
+cd230e8, and the first corrective documentation pass is recorded as 0a795b3.
+The authorized second corrective amendment is documented in the WP-01
+acceptance report. WP-01 acceptance remains open pending independent
+re-review.
 
 ## Current baseline
 
@@ -21,9 +24,12 @@ repository at C:\Projects\JobSkillRadar, on branch main, with HEAD at
 7eace60 (docs: add initial JobSkillRadar master plan). At the start of
 the original WP-01 implementation, git status --short returned no changes.
 That implementation was committed as cd230e8 (docs: implement WP-01
-governance baseline). At the start of corrective implementation, commit
-cd230e8 was checked out and git status --short again returned no changes.
-The corrective changes are intentionally uncommitted until review.
+governance baseline). At the start of the first corrective implementation,
+commit cd230e8 was checked out and `git status --short` returned no
+changes. At the start of the authorized second corrective amendment, commit
+0a795b3 was checked out and `git status --short` again returned no
+changes. The acceptance report records the dated verification snapshots for
+both corrective passes; later commits may change source-control status.
 
 The original tracked baseline contained these documentation files:
 
@@ -44,9 +50,10 @@ observations that are superseded by this inspection. The approved planning
 report remains a planning record; current repository facts are recorded here
 and in the WP-01 acceptance report.
 
-The current post-correction git status --short is expected to list only the
-documentation changes made by this corrective implementation. It must not be
-described as a clean-worktree result until those changes are committed.
+The acceptance report records that the final verification snapshot for the
+first corrective pass contained only documentation paths. This dated
+historical observation must not be generalized to a later clean or modified
+worktree state.
 
 ## Product scope
 
@@ -90,6 +97,14 @@ The MVP includes:
 The MVP must not require cloud accounts, server-side URL fetching, external
 AI, file uploads, telemetry, automated crawling, or PDF export.
 
+MVP data movement is export-only; import/interchange behavior and
+invalid-import testing are deferred unless separately approved.
+
+Analysis uses exactly the immutable job-text value accepted when the job is saved.
+Evidence uses zero-based, end-exclusive UTF-8 byte offsets and the SHA-256
+source digest of those exact bytes. Later metadata edits, including URL/title
+changes, notes, collections, and corrections, are not analysis input.
+
 ### Later releases
 
 - WP-06: optional cloud synchronization with authentication, object
@@ -120,8 +135,9 @@ These are open design decisions, not reasons to expand WP-01:
 4. Canonical local data model and IndexedDB migration strategy.
 5. Ontology coverage, alias governance, and bilingual annotation protocol.
 6. Accuracy targets and release thresholds after baseline measurement.
-7. Export-only MVP schema and whether a separately approved import/interchange
-   is needed before optional synchronization.
+7. Export-only MVP schema and whether separately approved import/interchange
+   behavior and invalid-import testing are needed before optional
+   synchronization.
 8. Cloud authentication and session model.
 9. Accessibility conformance target and browser/assistive-technology matrix.
 10. Canonical product/repository naming and documentation conventions.

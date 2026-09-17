@@ -5,8 +5,8 @@ Date: 2026-09-17
 Owners: Backend security owner, privacy owner, architecture owner
 Deciders: Security/privacy and product owners; named individuals not assigned
 Target package: WP-06
-Related requirements: FR-014, NFR-007, SEC-008, PRIV-003, PRIV-005
-Related risks: R-003, R-007, R-008
+Related requirements: [FR-014](../product/requirements.md#fr-014), [NFR-007](../product/requirements.md#nfr-007), [SEC-008](../product/requirements.md#sec-008), [PRIV-003](../product/requirements.md#priv-003), [PRIV-005](../product/requirements.md#priv-005)
+Related risks: [R-003](../risks/risk-register.md#r-003), [R-007](../risks/risk-register.md#r-007), [R-008](../risks/risk-register.md#r-008)
 Related ADRs: [ADR-0006](0006-pre-sync-interchange.md), [ADR-0007](0007-backend-runtime-versions.md)
 Evidence links: [ADR template](template.md), [ADR index](README.md), [Security/privacy baseline](../security/security-privacy-baseline.md), [Risk register](../risks/risk-register.md)
 
@@ -54,8 +54,8 @@ cloud data transfer is accepted.
 ## Consequences and tradeoffs
 
 Cloud value must justify a new trust boundary and operational burden. The
-local export/import path may be a lower-risk alternative and must be
-considered before making sync a requirement.
+The separately approved future local export/import path may be a lower-risk
+alternative and must be considered before making sync a requirement.
 
 ## Security, privacy, accessibility, and operations
 

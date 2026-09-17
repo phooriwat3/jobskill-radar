@@ -5,8 +5,8 @@ Date: 2026-09-17
 Owners: Architecture owner, dashboard lead, privacy owner
 Deciders: Architecture and product owners; named individuals not assigned
 Target package: WP-02/WP-05
-Related requirements: FR-012, FR-013, FR-014, NFR-003, SEC-006, PRIV-004
-Related risks: R-003, R-006, R-012
+Related requirements: [FR-012](../product/requirements.md#fr-012), [FR-013](../product/requirements.md#fr-013), [FR-014](../product/requirements.md#fr-014), [NFR-003](../product/requirements.md#nfr-003), [SEC-006](../product/requirements.md#sec-006), [PRIV-004](../product/requirements.md#priv-004)
+Related risks: [R-003](../risks/risk-register.md#r-003), [R-006](../risks/risk-register.md#r-006), [R-012](../risks/risk-register.md#r-012)
 Related ADRs: [ADR-0003](0003-local-data-model-and-migrations.md), [ADR-0008](0008-cloud-authentication.md)
 Evidence links: [ADR template](template.md), [ADR index](README.md), [Requirements](../product/requirements.md), [Security/privacy baseline](../security/security-privacy-baseline.md)
 
@@ -43,8 +43,9 @@ injection defenses.
 ## Evidence required
 
 Gather user backup/migration needs, privacy/schema-version risks,
-round-trip/security prototype evidence, deletion/correction semantics, and
-support cost. Link the result to the local data model ADR.
+export round-trip/security prototype evidence, deletion/correction semantics, and
+support cost. Invalid-import tests are deferred and may be added only after
+separate approval. Link the result to the local data model ADR.
 
 ## Decision
 
@@ -65,8 +66,9 @@ fields, accessible errors, deletion semantics, and recovery guidance.
 
 ## Validation plan
 
-WP-05 records a schema, malicious fixtures, round-trip results, version
-compatibility, correction behavior, and deletion tests.
+WP-05 records the export schema, malicious fixtures, export round-trip results,
+version compatibility, correction behavior, and deletion tests. Import
+behavior and invalid-import tests remain deferred unless separately approved.
 
 ## Rollback or revisit triggers
 

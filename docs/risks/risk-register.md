@@ -31,7 +31,7 @@ not assessed until the stated verification evidence is reviewed.
 
 ## Detailed entries
 
-### R-001 - Untrusted content crosses an execution or privilege boundary
+### R-001 <a id="r-001"></a> - Untrusted content crosses an execution or privilege boundary
 
 | Field | Value |
 |---|---|
@@ -58,7 +58,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Security owner and product owner |
 | Related ADR/package | [ADR-0002](../adr/0002-local-dashboard-packaging.md), [ADR-0003](../adr/0003-local-data-model-and-migrations.md), [ADR-0006](../adr/0006-pre-sync-interchange.md); WP-02/WP-03/WP-05/WP-07 |
 
-### R-002 - Permissions exceed justified flows
+### R-002 <a id="r-002"></a> - Permissions exceed justified flows
 
 | Field | Value |
 |---|---|
@@ -85,7 +85,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Security owner and product owner |
 | Related ADR/package | [ADR-0001](../adr/0001-frontend-workspace-and-tooling.md), [ADR-0002](../adr/0002-local-dashboard-packaging.md); WP-02/WP-03 |
 
-### R-003 - Sensitive data is transmitted or retained unexpectedly
+### R-003 <a id="r-003"></a> - Sensitive data is transmitted or retained unexpectedly
 
 | Field | Value |
 |---|---|
@@ -112,7 +112,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Privacy owner and product owner |
 | Related ADR/package | [ADR-0002](../adr/0002-local-dashboard-packaging.md), [ADR-0006](../adr/0006-pre-sync-interchange.md), [ADR-0008](../adr/0008-cloud-authentication.md); WP-02/WP-05/WP-06/WP-07 |
 
-### R-004 - Ontology conflates or misses terms
+### R-004 <a id="r-004"></a> - Ontology conflates or misses terms
 
 | Field | Value |
 |---|---|
@@ -139,7 +139,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Analysis owner and product owner |
 | Related ADR/package | [ADR-0004](../adr/0004-bilingual-ontology-governance.md), [ADR-0005](../adr/0005-corpus-and-accuracy-gates.md); WP-04 |
 
-### R-005 - Corpus invalidates accuracy claims
+### R-005 <a id="r-005"></a> - Corpus invalidates accuracy claims
 
 | Field | Value |
 |---|---|
@@ -166,7 +166,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Evaluation owner and privacy owner |
 | Related ADR/package | [ADR-0004](../adr/0004-bilingual-ontology-governance.md), [ADR-0005](../adr/0005-corpus-and-accuracy-gates.md); WP-04 |
 
-### R-006 - Schema migration corrupts evidence
+### R-006 <a id="r-006"></a> - Schema migration corrupts evidence
 
 | Field | Value |
 |---|---|
@@ -193,7 +193,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Architecture owner |
 | Related ADR/package | [ADR-0003](../adr/0003-local-data-model-and-migrations.md), [ADR-0006](../adr/0006-pre-sync-interchange.md); WP-02/WP-05 |
 
-### R-007 - Cloud authorization exposes another user
+### R-007 <a id="r-007"></a> - Cloud authorization exposes another user
 
 | Field | Value |
 |---|---|
@@ -220,7 +220,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Security owner |
 | Related ADR/package | [ADR-0007](../adr/0007-backend-runtime-versions.md), [ADR-0008](../adr/0008-cloud-authentication.md); WP-06 |
 
-### R-008 - Optional AI becomes unsafe or required
+### R-008 <a id="r-008"></a> - Optional AI becomes unsafe or required
 
 | Field | Value |
 |---|---|
@@ -247,7 +247,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Privacy owner and product owner |
 | Related ADR/package | [ADR-0005](../adr/0005-corpus-and-accuracy-gates.md), [ADR-0008](../adr/0008-cloud-authentication.md); WP-07 |
 
-### R-009 - Governance depends on insufficient source control
+### R-009 <a id="r-009"></a> - Governance depends on insufficient source control
 
 | Field | Value |
 |---|---|
@@ -274,7 +274,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Project lead |
 | Related ADR/package | [ADR-0010](../adr/0010-naming-and-documentation-conventions.md); all packages |
 
-### R-010 - Accessibility barriers block core use
+### R-010 <a id="r-010"></a> - Accessibility barriers block core use
 
 | Field | Value |
 |---|---|
@@ -301,7 +301,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Accessibility owner and product owner |
 | Related ADR/package | [ADR-0009](../adr/0009-accessibility-target-and-matrix.md); WP-02/WP-05/WP-09 |
 
-### R-011 - Source sites change or block extraction
+### R-011 <a id="r-011"></a> - Source sites change or block extraction
 
 | Field | Value |
 |---|---|
@@ -328,7 +328,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Extension lead and product owner |
 | Related ADR/package | [ADR-0001](../adr/0001-frontend-workspace-and-tooling.md), [ADR-0002](../adr/0002-local-dashboard-packaging.md); WP-03/WP-05 |
 
-### R-012 - Export leaks or executes content
+### R-012 <a id="r-012"></a> - Export leaks or executes content
 
 | Field | Value |
 |---|---|
@@ -344,7 +344,7 @@ not assessed until the stated verification evidence is reviewed.
 | Inherent likelihood | 3 |
 | Inherent impact | 4 |
 | Inherent score/severity | 12 / High |
-| Current controls/state | Data classification, explicit export schema/preview, neutralization, round-trip tests / planned |
+| Current controls/state | Data classification, explicit export schema/preview, neutralization, export round-trip tests / planned |
 | Treatment | Freeze export-only schema and escaping rules before WP-05 release |
 | Action owner/due point | Dashboard lead with security owner / before WP-05 release |
 | Trigger/early indicator | Exported fields exceed reviewed schema or formula markers execute |
@@ -355,7 +355,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Security owner and product owner |
 | Related ADR/package | [ADR-0006](../adr/0006-pre-sync-interchange.md); WP-05 |
 
-### R-013 - Unsupported technical choices create debt
+### R-013 <a id="r-013"></a> - Unsupported technical choices create debt
 
 | Field | Value |
 |---|---|
@@ -382,7 +382,7 @@ not assessed until the stated verification evidence is reviewed.
 | Accepting authority | Architecture owner |
 | Related ADR/package | [ADR-0001](../adr/0001-frontend-workspace-and-tooling.md), [ADR-0007](../adr/0007-backend-runtime-versions.md); WP-02/WP-06/WP-08 |
 
-### R-014 - Scope drift creates an MVP dependency
+### R-014 <a id="r-014"></a> - Scope drift creates an MVP dependency
 
 | Field | Value |
 |---|---|

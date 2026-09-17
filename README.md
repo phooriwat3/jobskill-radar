@@ -1,7 +1,8 @@
 # JobSkillRadar
 
-Status: WP-01 approved; corrective documentation implementation in progress;
-product implementation has not started.
+Status: WP-01 approved for documentation implementation; corrective amendment
+recorded; independent re-review pending; product implementation has not
+started.
 
 JobSkillRadar is planned as a local-first tool for capturing job
 advertisements that a user is already viewing, storing them on the device,
@@ -12,11 +13,14 @@ backend URL fetching, telemetry, or AI.
 ## Current repository state
 
 On 2026-09-17, the repository was re-inspected at
-C:\Projects\JobSkillRadar. Git metadata exists; commit cd230e8 was checked
-out on branch main and the worktree was clean at the start of corrective
-implementation. The repository has documentation only. The corrective
-changes in this working tree are documentation and governance artifacts and
-are intentionally not yet committed.
+C:\Projects\JobSkillRadar. Git metadata exists. The original WP-01
+implementation is committed as cd230e8, and the first corrective
+documentation pass is recorded as 0a795b3. At the start of the authorized
+second corrective amendment, branch main was at 0a795b3 and
+`git status --short` returned no changes. The final verification
+snapshot for that amendment recorded only documentation paths. These are
+dated historical observations; later commits may change source-control
+status.
 
 There is no extension, dashboard, API, package manifest, lockfile, CI
 workflow, database schema, executable test suite, or installed project
@@ -28,12 +32,18 @@ The local MVP covers user-initiated capture, preview/edit, immutable original
 evidence, local collections, deterministic Thai/English classification,
 evidence snippets, correction overlays, comparison, export, deletion, and
 security/accessibility/accuracy verification planning. It supports export
-only; import/interchange remains deferred unless separately approved.
+only; import/interchange behavior and invalid-import testing remain deferred
+unless separately approved.
 
 Cloud synchronization, AI assistance, backend services, mass crawling,
 access-control circumvention, automatic job applications, file upload, and
 PDF export are later or excluded scope. See the product brief for the
 complete boundary.
+
+Analysis uses exactly the immutable job-text value accepted when the job is saved.
+Evidence is represented by zero-based, end-exclusive UTF-8 byte offsets plus a
+SHA-256 source digest of those exact bytes. Later metadata edits, including
+URL/title changes, notes, collections, and corrections, are not analysis input.
 
 ## Documentation map
 

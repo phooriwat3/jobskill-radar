@@ -5,8 +5,8 @@ Date: 2026-09-17
 Owners: Architecture owner, backend security owner, operations owner
 Deciders: Architecture and product owners; named individuals not assigned
 Target package: WP-06
-Related requirements: NFR-006, NFR-007, SEC-008, SEC-010, PRIV-003
-Related risks: R-007, R-013, R-014
+Related requirements: [NFR-006](../product/requirements.md#nfr-006), [NFR-007](../product/requirements.md#nfr-007), [SEC-008](../product/requirements.md#sec-008), [SEC-010](../product/requirements.md#sec-010), [PRIV-003](../product/requirements.md#priv-003)
+Related risks: [R-007](../risks/risk-register.md#r-007), [R-013](../risks/risk-register.md#r-013), [R-014](../risks/risk-register.md#r-014)
 Related ADRs: [ADR-0001](0001-frontend-workspace-and-tooling.md), [ADR-0008](0008-cloud-authentication.md)
 Evidence links: [ADR template](template.md), [ADR index](README.md), [Roadmap](../roadmap/work-packages.md), [Risk register](../risks/risk-register.md)
 

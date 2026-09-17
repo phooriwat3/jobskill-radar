@@ -7,13 +7,19 @@ Owner role: Project lead with package owners; named individuals not assigned
 WP-01 verifies documentation and governance quality. It does not create a
 product test suite or claim product behavior.
 
+For every analyzer test layer, the input contract is the exact immutable job-text
+value accepted when the job is saved. Evidence assertions use
+zero-based, end-exclusive offsets into its exact UTF-8 bytes plus the
+SHA-256 source digest; later metadata edits, notes, collections, and
+corrections are not analysis input.
+
 ## Test layers
 
 | Layer | Planned scope | Primary packages |
 |---|---|---|
 | Unit | Normalization, aliases, distinctions, required/preferred rules, URL/schema validation, unique-per-job aggregation, export escaping | WP-03/WP-04/WP-05 |
-| Property/fuzz | Unicode and mixed-language text, malformed messages, large inputs, UTF-8 byte offsets, deterministic/idempotent behavior | WP-03/WP-04/WP-05 |
-| Contract | Extension messages, local schema/migrations, analyzer output, MVP exports, future approved import schemas, and future API schemas | WP-02/WP-03/WP-04/WP-05/WP-06 |
+| Property/fuzz | Unicode and mixed-language text, malformed messages, large inputs, UTF-8 byte offsets/source digests, deterministic/idempotent behavior | WP-03/WP-04/WP-05 |
+| Contract | Extension messages, local schema/migrations, analyzer output, MVP exports, future API schemas, and import schemas only after separate approval | WP-02/WP-03/WP-04/WP-05/WP-06 |
 | Integration | Capture-to-store, store-to-analysis, correction overlay, deletion, migration, sync authorization/conflicts | WP-03 through WP-07 |
 | End-to-end | Offline capture, preview/save, analyze, correct, compare, export, and delete | WP-03/WP-05 |
 | Security | Hostile markup, script-like text, unsafe URLs, sender confusion, message size, CSP assumptions, dependencies, multi-user authorization | WP-02/WP-03/WP-06/WP-08 |
@@ -31,10 +37,10 @@ product test suite or claim product behavior.
 | Determinism | Same input/configuration/version produces stable serialized output |
 | Bilingual analysis | Language/category slices, aliases, distinctions, unknown handling |
 | Unique-per-job count | Repeated mentions and alias fixtures count once |
-| Evidence | Every result links to source job, exact analysis-text digest, and bounded UTF-8 byte span/snippet |
+| Evidence | Every result links to source job, the SHA-256 source digest of the exact saved analysis text, and a bounded UTF-8 byte span/snippet |
 | Correction | Accept/reject/add/remap overlay leaves evidence unchanged |
 | Comparison/filter | Accessible selection and unique-frequency behavior |
-| Export only | Versioned JSON/CSV schema, bounded fields, safe CSV, and round-trip behavior; import only if separately approved |
+| Export only | Versioned JSON/CSV schema, bounded fields, safe CSV, and export round-trip behavior; import behavior and invalid-import tests are deferred unless separately approved |
 | Deletion | Job, collection, derived data, corrections, and all-data paths |
 | Offline | Network unavailable after installation does not block MVP journeys |
 

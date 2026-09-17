@@ -2,7 +2,8 @@
 
 Status: Ready for independent re-review and subsequent WP-02 planning; implementation not authorized
 Date: 2026-09-17
-Source: WP-01 corrective documentation baseline and acceptance/review handoff
+Source: WP-01 documentation baseline, authorized second corrective amendment,
+and acceptance/review handoff
 Gate: Independent re-review of the corrective change set remains required before WP-01 is finally accepted
 
 ## Handoff purpose
@@ -49,15 +50,17 @@ after separate approval.
    accessibility owners and named reviewers.
 2. Produce architecture and trust-boundary diagrams covering page capture,
    extension contexts, local store, dashboard, export, and explicitly
-   deferred sync/AI paths. Import/interchange is not an MVP input unless
-   separately approved.
+   deferred sync/AI paths. Import/interchange behavior and invalid-import
+   testing are not MVP inputs unless separately approved.
 3. Run a time-boxed frontend/tooling compatibility spike and update
    ADR-0001 with official support, MV3/browser, reproducibility,
    license/security, and update evidence.
 4. Decide or time-box local dashboard packaging in ADR-0002.
-5. Define the local data contract, stable IDs, analysis-text field, UTF-8
-   byte offsets/digest, migrations, recovery, quotas, and export compatibility
-   in ADR-0003.
+5. Define the local data contract, stable IDs, and the exact immutable job-text
+   value accepted when the job is saved in ADR-0003. Evidence uses
+   zero-based, end-exclusive UTF-8 byte offsets and the SHA-256 source digest;
+   later metadata edits are not analysis input. Also define migrations,
+   recovery, quotas, and export compatibility.
 6. Define extension permission, host-access, message, URL, rendering, size,
    and network-observation checks for SEC-001 through SEC-010.
 7. Recommend the accessibility target and browser/assistive-technology matrix
@@ -130,8 +133,8 @@ the WP-02 Definition of Ready is met.
 - Architecture overview and trust-boundary/data-flow diagrams.
 - Accepted or still-Proposed ADR updates with related-ADR and evidence links.
 - Extension/dashboard packaging recommendation.
-- Local data contract, analysis-text/offset contract, migration/recovery
-  contract, and export-only boundary.
+- Local data contract, immutable saved-job-text/source-digest/offset contract,
+  migration/recovery contract, and export-only boundary.
 - Permission, message, URL, rendering, dependency, and network-observation
   verification plan.
 - Accessibility target and browser/assistive-technology matrix.

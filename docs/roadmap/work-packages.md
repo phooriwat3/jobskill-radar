@@ -28,6 +28,11 @@ the local MVP without waiting for WP-06 or WP-07. If approved later, WP-06
 and WP-07 feed their cloud/AI controls into WP-08 and their applicable
 validation into WP-09.
 
+The shared analysis contract is the exact immutable job-text value accepted
+when the job is saved. Evidence uses zero-based, end-exclusive UTF-8 byte
+offsets and a SHA-256 source digest; later metadata edits are not analysis
+input.
+
 ## Package plan
 
 | Package | Scope | Entry gate | Outputs and exit gate |
@@ -36,7 +41,7 @@ validation into WP-09.
 | WP-02 | Architecture, security foundation, data contracts, packaging, tooling evidence, accessibility target, local-store design | WP-01 source of truth reviewed; decision owners assigned | Accepted architecture/security ADRs, contracts, verification plan, and implementation-ready gates |
 | WP-03 | User-initiated Manifest V3 capture, permission boundary, preview input, selection/paste fallback | WP-02 capture contracts and permission/security gates | Tested capture flow with hostile-input and fallback evidence |
 | WP-04 | Deterministic bilingual analyzer, ontology, aliases, distinctions, corpus, evaluation | WP-02 data contracts and approved corpus governance | Versioned analyzer/ontology, baseline metrics, error analysis, and release-gate proposal |
-| WP-05 | Local dashboard, collections, comparison, corrections, evidence views, export, deletion | WP-03 capture and WP-04 analysis contracts | Accessible end-to-end local workflow with data/export/deletion evidence; export only unless import is separately approved |
+| WP-05 | Local dashboard, collections, comparison, corrections, evidence views, export, deletion | WP-03 capture and WP-04 analysis contracts | Accessible end-to-end local workflow with data/export/deletion evidence; export only; import behavior and invalid-import testing are deferred unless separately approved |
 | WP-06 | Optional backend, account/session model, synchronization, authorization, conflicts, deletion propagation | Explicit approval; local MVP remains independent | Authenticated sync with negative authorization and recovery evidence |
 | WP-07 | Optional provider-neutral AI assistance and deterministic fallback | Deterministic baseline and WP-06 controls if remote | Consent, schema/evidence validation, budgets, and fallback comparison |
 | WP-08 | Security hardening, supply-chain policy, operations, recovery, release automation for the local MVP and any later approved cloud/AI branches | Implemented local-MVP package evidence and accumulated risk review | Local-MVP operational exercises and release gates; later cloud/AI controls are additive |

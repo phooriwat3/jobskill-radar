@@ -22,18 +22,20 @@ The evaluation version must bind:
 
 ## Analysis input and evidence offsets
 
-The analyzer input is exactly the saved original-evidence job-text field.
-That field may come from relevant page-derived text, selected text, or manual
-paste after preview. Source URL, page title, capture time, collection labels,
-user notes, later edits, and correction text are excluded unless deliberately
-copied into job text before save.
+The analyzer input is exactly the immutable job-text value accepted when the
+job is saved. That value may come from relevant page-derived text, selected
+text, or manual paste after preview. Source URL, page title, capture time,
+collection labels, user notes, later metadata edits, and correction text are never
+analysis input; only text accepted into the job-text value before save can be
+analyzed.
 
-The analyzer consumes the exact UTF-8 byte sequence of that field. It must not
-trim, normalize Unicode, convert line endings, or apply locale-dependent
-transforms before calculating offsets. Each predicted span is a zero-based,
-end-exclusive UTF-8 byte range plus a digest of the exact analysis text.
-Evaluation fixtures must verify that the same input bytes, analyzer version,
-ontology version, and configuration reproduce the same spans and digest.
+The analyzer consumes the exact UTF-8 byte sequence of that value and records
+its SHA-256 source digest. It must not trim, normalize Unicode, convert line
+endings, or apply locale-dependent transforms before calculating offsets. Each
+predicted span is a zero-based, end-exclusive UTF-8 byte range plus the source
+digest. Evaluation fixtures must verify that the same input bytes, source
+digest, analyzer version, ontology version, and configuration reproduce the
+same spans and digest.
 
 ## Corpus governance
 
@@ -57,7 +59,8 @@ removal path, and limitations.
 
 The annotation guide must specify:
 
-- Annotation unit and the documented UTF-8 byte-offset/digest convention.
+- Annotation unit and the documented UTF-8 byte-offset/source-digest
+  convention.
 - Canonical item, source span, category, required/preferred/unknown label,
   and language.
 - Aliases, negation, headings, lists, experience ranges, implicit signals,

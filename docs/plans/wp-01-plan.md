@@ -21,6 +21,19 @@ Owner status: accountable roles are documented, but named individuals have
 not been assigned. No package may require an individual approval until the
 role is assigned to a person.
 
+## Authorized corrective scope amendment
+
+Authorization evidence: the user explicitly authorized this narrow amendment
+in the Codex session on 2026-09-17 to resolve review findings H-01, M-01,
+M-02, M-03, L-01, and L-02.
+
+This authorization expressly includes the corrective modification of
+`docs/plans/wp-01-plan.md` and the linked WP-01 source-of-truth and handoff
+records needed to resolve those findings. It authorizes documentation and
+governance changes only; it does not authorize application code, dependency
+installation, infrastructure, or unrelated scope changes. It does not change
+the WP-01 acceptance status: independent re-review remains required.
+
 ## 1. Executive decision summary
 
 The smallest useful release is a local-only browser extension plus a local dashboard that lets a user deliberately capture a job advertisement, review and edit the capture, store it on the device, classify qualifications deterministically in Thai and English, inspect evidence for each result, correct results without changing the original evidence, compare jobs, and export data. It does not need an account, server, AI provider, crawler, file upload, or backend URL fetch.
@@ -81,7 +94,9 @@ The MVP consists of these user-visible capabilities:
 11. Every reported item links to a source job and a bounded evidence snippet; ambiguous or low-confidence results are visibly distinguished.
 12. Users can accept, reject, add, or remap analysis results without altering captured evidence.
 13. Users can export portable JSON and tabular CSV with documented schemas.
-14. Core capture, review, evidence, correction, comparison, export, keyboard, responsive, and hostile-input behaviors are tested.
+14. MVP behavior stops at export; import/interchange behavior and
+    invalid-import testing remain deferred unless separately approved.
+15. Core capture, review, evidence, correction, comparison, export, keyboard, responsive, and hostile-input behaviors are tested.
 
 This scope is useful without cloud or AI because capture, analysis, comparison, correction, and export all operate locally.
 
@@ -91,7 +106,7 @@ This scope is useful without cloud or AI because capture, analysis, comparison, 
 - WP-07: opt-in provider-neutral AI assistance with explicit transmission consent, structured output validation, evidence validation, budgets, and deterministic fallback.
 - WP-08: operational hardening, software bill of materials, supply-chain scanning, incident response, backup/recovery for cloud data, and release automation.
 - WP-09: representative real-world validation, cross-browser verification, store submission preparation, performance validation, and release review.
-- Separately approved future scope: PDF export, more site-specific adapters, document/file upload, and import workflows beyond any agreed interchange format.
+- Separately approved future scope: PDF export, more site-specific adapters, document/file upload, and import/interchange workflows. Import behavior and invalid-import testing are deferred and are not MVP acceptance criteria.
 
 ### 3.3 Non-goals
 
@@ -148,7 +163,7 @@ Requirement keywords use `MUST`, `SHOULD`, and `MAY` as priority signals, not cl
 | FR-005 | The system MUST support local collections and create, read, update, and delete operations for captured jobs. | MVP |
 | FR-006 | The system MUST warn about probable duplicates and MUST allow the user to continue. | MVP |
 | FR-007 | Deterministic analysis MUST classify the agreed qualification categories in Thai and English. | MVP |
-| FR-008 | Every reported qualification MUST reference at least one source job and evidence span/snippet. | MVP |
+| FR-008 | Every reported qualification MUST reference at least one source job and an evidence span/snippet tied to the source digest. | MVP |
 | FR-009 | Frequency MUST count a canonical item at most once per job. | MVP |
 | FR-010 | Users MUST be able to accept, reject, add, and remap results without changing original evidence. | MVP |
 | FR-011 | The dashboard MUST filter jobs/results and compare selected jobs. | MVP |
@@ -162,7 +177,7 @@ Requirement keywords use `MUST`, `SHOULD`, and `MAY` as priority signals, not cl
 | ID | Planned requirement | Evidence needed before target approval |
 |---|---|---|
 | NFR-001 | Core MVP functions MUST work without network access after installation. | Automated offline scenario and network-observation test design. |
-| NFR-002 | Deterministic analysis MUST produce reproducible results for the same input, ontology, and analyzer version. | Golden test with recorded versions and stable serialized output. |
+| NFR-002 | Deterministic analysis MUST use exactly the immutable job-text value accepted at save time and produce reproducible results for the same UTF-8 bytes, source digest, ontology, and analyzer version. | Golden test with recorded versions, source digest, and stable serialized output. |
 | NFR-003 | Local schema and exports MUST be versioned and migratable. | Migration contract and fixtures spanning supported schema versions. |
 | NFR-004 | Supported data volumes MUST remain usable within approved latency and storage budgets. | Representative volume study and device/browser baseline; numerical budgets remain TBD. |
 | NFR-005 | Failures MUST preserve previously committed local records and provide actionable, non-sensitive messages. | Fault-injection and recovery scenarios. |
@@ -178,7 +193,7 @@ Requirement keywords use `MUST`, `SHOULD`, and `MAY` as priority signals, not cl
 | SEC-003 | Extension permissions and host access MUST be the minimum justified by documented capture flows. |
 | SEC-004 | Extension messages MUST have explicit schemas, sender/context validation, size limits, and deny-by-default handling. |
 | SEC-005 | Stored or opened URLs MUST be validated against an allowlist of required schemes; dangerous schemes MUST not become executable links. |
-| SEC-006 | Imports/exports and future AI responses MUST be schema-validated with bounded sizes and safe failure behavior. |
+| SEC-006 | MVP exports and future AI responses MUST be schema-validated with bounded sizes and safe failure behavior. Import/interchange behavior and invalid-import testing are deferred and require separate approval. |
 | SEC-007 | Secrets MUST NOT be shipped in client bundles or committed to the repository. |
 | SEC-008 | Future cloud APIs MUST authenticate requests and enforce object authorization independently for every operation. |
 | SEC-009 | The product MUST NOT fetch source job URLs server-side or circumvent access controls. |
@@ -226,7 +241,9 @@ Requirement keywords use `MUST`, `SHOULD`, and `MAY` as priority signals, not cl
 |---|---|
 | Captured job | A user-created local record representing a job advertisement and its capture metadata. It is not proof that the source remains available or unchanged. |
 | Original evidence | The exact text and metadata accepted at save time. Immutable after creation except through explicit record deletion. |
-| Evidence span | Character-offset reference into original evidence; a display snippet is derived from and must remain traceable to it. Offset convention is an open decision. |
+| Analysis text | The exact immutable text value accepted in the job-text field when the job is saved. Page-derived, selected, or manually pasted content becomes this value only after preview; later metadata edits, notes, collections, and corrections are not analysis input. |
+| Evidence span | A zero-based, end-exclusive byte range into the exact UTF-8 bytes of analysis text, paired with a source digest. A display snippet is derived and must remain traceable to it. |
+| Source digest | The SHA-256 digest of the exact UTF-8 bytes of analysis text used for a result; a mismatch invalidates or flags the evidence span. |
 | Evidence snippet | A bounded, safely rendered excerpt shown to explain a result. It is not an independent source of truth. |
 | Canonical item | Stable ontology identifier used for aggregation, distinct from its display label and source aliases. |
 | Alias | Surface form that may map to a canonical item under documented context rules. |
@@ -240,10 +257,18 @@ Requirement keywords use `MUST`, `SHOULD`, and `MAY` as priority signals, not cl
 | Local dashboard | User interface operating on the local store; packaging as an extension page versus separately served app is undecided. |
 | Ontology version | Identifier for a coherent set of canonical items, aliases, relationships, and distinction rules. |
 | Corpus | Versioned set of permitted, minimized text samples and gold annotations used for evaluation. |
-| Deterministic analysis | Analysis whose output is reproducible for fixed input, configuration, ontology, and analyzer versions and does not require an external AI service. |
+| Deterministic analysis | Analysis calculated only from the exact immutable job-text value accepted when the job is saved and reproducible for fixed UTF-8 input bytes, configuration, ontology, analyzer version, and source digest without an external AI service. |
 | Duplicate candidate | A non-blocking similarity warning based on a documented key or score; not a guaranteed duplicate. |
 
 The implementation session should move this glossary into its own source-of-truth document and add rules for term ownership, deprecation, and identifier stability.
+
+Analysis contract: the analyzer receives exactly the immutable job-text value
+accepted when the job is saved. It excludes URL, title, capture time, collection
+labels, notes, later metadata edits, and corrections. The exact UTF-8 bytes are
+hashed with SHA-256; evidence spans are zero-based, end-exclusive UTF-8 byte
+ranges plus that source digest. No trimming, Unicode normalization, line-ending
+conversion, or locale-dependent transformation occurs before analysis or offset
+calculation.
 
 ## 7. Accuracy evaluation method
 
@@ -295,16 +320,17 @@ flowchart TD
   W2 --> W4[WP-04 analysis core and ontology]
   W3 --> W5[WP-05 local dashboard and reports]
   W4 --> W5
-  W2 --> W6[WP-06 optional backend and sync]
-  W4 --> W6
-  W4 --> W7[WP-07 optional AI assistance]
-  W6 --> W7
   W3 --> W8[WP-08 hardening and operations]
   W4 --> W8
   W5 --> W8
-  W6 --> W8
-  W7 --> W8
-  W8 --> W9[WP-09 release candidate validation]
+ W8 --> W9[WP-09 release candidate validation]
+  W2 -. optional later .-> W6[WP-06 optional backend and sync]
+  W4 -. optional later .-> W6
+  W6 -. optional later .-> W7[WP-07 optional AI assistance]
+  W6 -. optional hardening input .-> W8
+  W7 -. optional hardening input .-> W8
+  W6 -. optional validation input .-> W9
+  W7 -. optional validation input .-> W9
 ```
 
 | Package | Needs from WP-01 | Must return/update |
@@ -315,10 +341,10 @@ flowchart TD
 | WP-05 | Journeys, dashboard/report requirements, data contracts from WP-02/03/04. | Accessible workflows, comparisons, corrections, exports, end-to-end evidence and test results. |
 | WP-06 | Deferred cloud boundary, privacy/security requirements, local schema/export contracts. | Auth and authorization design, sync/conflict/deletion semantics, operations and verification evidence. |
 | WP-07 | AI opt-in boundary, evaluation rules, deterministic baseline, WP-06 controls if remote. | Provider abstraction, consent/cost/schema/evidence controls, comparative evaluation, fallback tests. |
-| WP-08 | Accumulated risk register, security and operational requirements, implemented system. | Hardening evidence, supply-chain controls, runbooks, recovery exercise, release gates. |
-| WP-09 | Completed prior packages, measurable acceptance criteria, approved target environments. | Real-world validation, browser/store evidence, final limitations, go/no-go record. |
+| WP-08 | Accumulated risk register, security and operational requirements, implemented local-MVP system. | Local-MVP hardening evidence, supply-chain controls, runbooks, recovery exercise, and release gates; later cloud/AI controls are additive only. |
+| WP-09 | Completed local-MVP packages, measurable acceptance criteria, approved target environments. | Local-MVP real-world validation and go/no-go record; later cloud/AI validation is additive only when separately approved. |
 
-WP-03 and WP-04 may run in parallel only after WP-02 freezes their shared contracts. WP-05 requires both. WP-06 is not a prerequisite for the local MVP. WP-07 must not become a prerequisite for deterministic analysis.
+Solid arrows in the graph are local-MVP gates. WP-03 and WP-04 may run in parallel only after WP-02 freezes their shared contracts; WP-05 requires both. The local path is WP-01 -> WP-02 -> WP-03/WP-04 -> WP-05 -> WP-08 -> WP-09. WP-06 and WP-07 are optional later branches, and their absence cannot gate local-MVP WP-08 or WP-09 work. Their controls and validation may be added to those packages only after separate approval.
 
 ## 9. Definition of Ready
 
@@ -389,7 +415,7 @@ Owners below are roles to be replaced by named accountable people during WP-01 i
 | R-003 | Stored job text contains personal/sensitive data and is transmitted or retained unexpectedly. | 3×5=15 | High | Privacy owner | Telemetry/network dependency, sync/AI proposal, unclear deletion, corpus capture. | Local-only default; data inventory/flow review; network tests; explicit consent design; deletion tests. | Disable transmission; notify governance owner; provide deletion/export guidance; assess incident obligations. |
 | R-004 | Ontology conflates distinct technologies or misses Thai/English variants, producing misleading frequency insights. | 4×4=16 | High | Analysis lead | High confusion-pair errors, user corrections, or poor language-slice recall. | Versioned IDs/aliases/distinction tests; bilingual corpus; sliced metrics; error review. | Label uncertainty; permit remap; roll back ontology version; narrow supported claims. |
 | R-005 | Corpus is unrepresentative, contaminated, impermissibly retained, or tuned against, invalidating accuracy claims. | 4×4=16 | High | Evaluation lead | Unknown provenance, skewed slices, duplicate leakage, target set before baseline. | Corpus register; permission/minimization review; fixed splits; double annotation; provenance and leakage checks. | Withdraw claims/artifacts; rebuild corpus; repeat independent evaluation. |
-| R-006 | IndexedDB schema changes corrupt or orphan evidence/corrections. | 3×5=15 | High | Data architecture owner | Migration introduced without fixtures/rollback; interrupted upgrade loses links. | Versioned schema ADR; invariant and migration tests with backup/export path; fault injection. | Stop upgrade; preserve old store; restore/import compatible export; ship corrective migration. |
+| R-006 | IndexedDB schema changes corrupt or orphan evidence/corrections. | 3×5=15 | High | Data architecture owner | Migration introduced without fixtures/rollback; interrupted upgrade loses links. | Versioned schema ADR; invariant and migration tests with backup/export path; fault injection. | Stop upgrade; preserve old store; restore from a separately approved recovery procedure; do not add import to MVP; ship corrective migration. |
 | R-007 | Cloud object-authorization flaw exposes one user’s captures to another. | 3×5=15 | High | Backend security owner | WP-06 endpoint accepts user-controlled object ID without policy test. | Per-object authorization design; negative multi-user integration tests; security review. | Block sync release; disable endpoint; revoke tokens; incident-response process. |
 | R-008 | Optional AI leaks content, fabricates unsupported results, or becomes required for core use. | 4×4=16 | High | AI feature owner | Content transmitted without granular consent; result lacks valid evidence; deterministic tests fail when provider unavailable. | Default-off consent; provider/data disclosure; schema/evidence validation; quotas; no-network fallback tests. | Disable provider feature; discard unverified outputs; retain/recompute deterministic results. |
 | R-009 | Lack of source control loses decisions or prevents reliable review/audit. | 4×4=16 | High | Project lead | WP-01 implementation begins with no managed repository/history. | Confirm external VCS or initialize approved repository; branch/review convention; backup policy; verify clean status and recoverability. | Pause implementation; archive docs safely; establish reviewed baseline before code. |
@@ -416,7 +442,7 @@ Each ADR should include: title/status/date; owners/deciders; context and forces;
 | ADR-0003 | Canonical local data model, IDs, evidence offsets, IndexedDB wrapper, and migrations. | Domain invariants; transaction/failure behavior; browser quotas; migration/backup fixtures; export compatibility; performance prototype; supported-browser behavior. | WP-02 |
 | ADR-0004 | Bilingual ontology model, initial coverage, aliases, distinctions, and governance. | Representative sample inventory; domain-review capacity; ambiguity/error analysis; versioning needs; user journeys; licensing/provenance constraints. | WP-04 planning, foundations in WP-01 |
 | ADR-0005 | Corpus annotation protocol and accuracy release gates. | Approved permitted corpus; annotation trial/agreement; baseline metrics by slice; user-harm analysis; confidence/uncertainty method; dataset size/support. | WP-04; do not set target in WP-01 |
-| ADR-0006 | Export/import interchange before cloud sync. | User backup/migration needs; privacy and schema-version risks; round-trip/security prototype; support cost; relationship to WP-06 conflicts. | WP-02/WP-05 |
+| ADR-0006 | Export-only MVP and separately approved future import/interchange before cloud sync. | User backup/migration needs; privacy and schema-version risks; round-trip/security prototype; invalid-import testing; support cost; relationship to WP-06 conflicts. Import behavior is deferred and not an MVP gate. | WP-02/WP-05 |
 | ADR-0007 | Supported Java 21 and Spring Boot 3.x line for optional backend. | At WP-06 planning time: official vendor/Spring support matrices and maintenance dates; compatibility/BOM; security advisories; PostgreSQL/deployment compatibility; team/runtime constraints; reproducible prototype. No backend dependency for MVP. | WP-06 |
 | ADR-0008 | Cloud authentication and session model. | Deployment topology; client types; threat model; identity/privacy requirements; account recovery/deletion; standards and provider support; authorization prototype; operational ownership. | WP-06 |
 | ADR-0009 | Accessibility conformance target and verification matrix. | Distribution markets; applicable stakeholder/legal guidance; target browsers; assistive technologies; manual-test capacity; design-system feasibility. | WP-02 |
@@ -442,8 +468,8 @@ WP-01 verifies documentation quality, not product behavior. It should:
 ### 13.2 Downstream test layers
 
 - Unit: normalization, alias boundaries, distinctions, required/preferred rules, URL/schema validation, unique-per-job aggregation, export escaping.
-- Property/fuzz: Unicode and mixed-language text, malformed messages/imports, large inputs, offsets, deterministic/idempotent behavior.
-- Contract: extension messages, local schema/migrations, analyzer output, exports/imports, future API schemas.
+- Property/fuzz: Unicode and mixed-language text, malformed messages, large inputs, UTF-8 byte offsets, source-digest checks, deterministic/idempotent behavior.
+- Contract: extension messages, local schema/migrations, analyzer output, MVP export schemas, and future API schemas; import schemas only after separate approval.
 - Integration: capture-to-store, store-to-analysis, correction overlay, deletion, migration, sync authorization/conflicts.
 - End-to-end: offline capture/preview/save/analyze/correct/compare/export/delete journeys.
 - Security: hostile markup, script-like text, unsafe URLs, sender confusion, message size, CSP assumptions, dependency scans, multi-user authorization in WP-06.
@@ -470,7 +496,9 @@ WP-01 verifies documentation quality, not product behavior. It should:
 - Source URLs are references and must not be fetched by a backend.
 - User/page text is untrusted at every boundary.
 - No implementation exists to validate; all product controls remain planned.
-- Git metadata and documentation history are observable in the current repository; the corrective worktree is intentionally dirty until review completes and must not be described as clean.
+- Git metadata and documentation history were observable during the dated
+  corrective verification snapshots; those historical states must not be
+  generalized to a later clean or modified worktree state.
 
 ### 14.3 Evidence backlog
 
@@ -504,7 +532,7 @@ The implementation session should create a coherent documentation baseline only:
 
 | ID | Acceptance criterion |
 |---|---|
-| WP01-AC-01 | Repository inspection is dated and distinguishes the historical planning snapshot from the current Git worktree and documentation baseline, without claiming the workspace is empty. |
+| WP01-AC-01 | Repository inspection is dated and distinguishes the historical planning snapshot from the recorded Git worktree/documentation baseline, without claiming the workspace is empty. |
 | WP01-AC-02 | MVP, deferred scope, and non-goals are explicit and consistent across product, roadmap, and requirements documents. |
 | WP01-AC-03 | Every requirement has a unique stable ID, category, priority/release, verification approach, and responsible work package in traceability data. |
 | WP01-AC-04 | Personas and end-to-end journeys cover standard, bilingual, privacy, correction, fallback, export, deletion, and accessibility needs; unvalidated personas are labeled hypotheses. |
@@ -589,9 +617,9 @@ The sequence below records the original implementation sequence; the corrective 
 
 These are handoff commands. Run them from the repository root with
 PowerShell. Record the exact command, tool/version, date, exit code, output
-location, and limitation in docs/handoffs/wp-01-acceptance.md. A dirty
-worktree after an implementation or corrective session is expected; do not
-describe it as clean.
+location, and limitation in docs/handoffs/wp-01-acceptance.md. Record source
+control state as a dated verification snapshot; do not generalize a clean or
+modified result to later commits.
 
 ~~~powershell
 rg --version

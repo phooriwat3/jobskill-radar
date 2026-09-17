@@ -5,8 +5,8 @@ Date: 2026-09-17
 Owners: Evaluation lead, analysis lead, privacy owner
 Deciders: Evaluation and product owners; named individuals not assigned
 Target package: WP-04
-Related requirements: ACC-001 through ACC-008, PRIV-006, PRIV-007
-Related risks: R-004, R-005, R-014
+Related requirements: [ACC-001](../product/requirements.md#acc-001), [ACC-002](../product/requirements.md#acc-002), [ACC-003](../product/requirements.md#acc-003), [ACC-004](../product/requirements.md#acc-004), [ACC-005](../product/requirements.md#acc-005), [ACC-006](../product/requirements.md#acc-006), [ACC-007](../product/requirements.md#acc-007), [ACC-008](../product/requirements.md#acc-008), [PRIV-006](../product/requirements.md#priv-006), [PRIV-007](../product/requirements.md#priv-007)
+Related risks: [R-004](../risks/risk-register.md#r-004), [R-005](../risks/risk-register.md#r-005), [R-014](../risks/risk-register.md#r-014)
 Related ADRs: [ADR-0004](0004-bilingual-ontology-governance.md)
 Evidence links: [ADR template](template.md), [ADR index](README.md), [Accuracy plan](../quality/accuracy-evaluation-plan.md), [Security/privacy baseline](../security/security-privacy-baseline.md)
 

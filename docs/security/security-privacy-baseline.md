@@ -11,9 +11,8 @@ has been completed.
 ## Security and privacy principles
 
 - Capture is explicit and user initiated.
-- Page text, pasted text, URLs, exports, future approved imports, and future
-  model output are
-  untrusted data.
+- Page text, pasted text, URLs, exports, separately approved future imports,
+  and future model output are untrusted data.
 - Original evidence is separate from edits, analysis, corrections, and
   exports.
 - The MVP is local-only by default and must remain useful without a network,
@@ -37,8 +36,8 @@ and WP-05. The default MVP transmission is none.
 | Selected/pasted text | User-selected or manually supplied fallback | Local capture flow, then local store | None | Delete with captured job | Planned |
 | Source URL/title/metadata | Context for evidence and navigation | Local captured-job record | None | Delete with captured job; validate URL schemes | Planned |
 | Original evidence | Exact accepted job text/metadata used as source truth | Versioned local store | None | Immutable until explicit deletion; define backup behavior | Planned |
-| Analysis text and digest | Exact saved job-text field and its UTF-8 digest used by deterministic analysis | Versioned local store | None | Delete with original evidence; digest detects mismatched spans | Planned |
-| Edited capture fields | User organization and analysis input | Separate local record/overlay | None | Delete with related job | Planned |
+| Analysis text and source digest | Exact immutable job-text value accepted when the job is saved and the SHA-256 digest of its exact UTF-8 bytes | Versioned local store | None | Delete with original evidence; digest detects mismatched spans | Planned |
+| Edited capture fields | User organization and display metadata; not analyzer input | Separate local record/overlay | None | Delete with related job | Planned |
 | Derived analysis | Canonical items, categories, confidence, evidence spans, analyzer version | Local derived records | None | Delete/recompute with related job | Planned |
 | Corrections | User accept/reject/add/remap decisions | Separate local correction records | None | Delete with related job and exports | Planned |
 | Collections | User grouping of captured jobs | Local store | None | Individual/all-data deletion | Planned |
@@ -61,26 +60,25 @@ flowchart LR
   Sync -.-> Auth[Future identity and authorization]
 ~~~
 
-The dashed paths are not part of the MVP. Import/interchange is also not part
-of the MVP unless separately approved. Each later crossing needs a separate
-schema, consent, threat model, size limit, failure policy, and verification
-record.
+The dashed paths are not part of the MVP. Import/interchange behavior and
+invalid-import testing are also not part of the MVP unless separately
+approved. Each later crossing needs a separate schema, consent, threat model,
+size limit, failure policy, and verification record.
 
 ## Analysis-text and evidence contract
 
-Deterministic analysis reads exactly one field: the saved original-evidence
-job-text field accepted from page-derived relevant text, selected text, or
-manual paste after preview. It does not read source URL, page title,
-timestamps, collection labels, user notes, later edits, or correction text
-unless the user deliberately copied that text into the job-text field before
-save.
+Deterministic analysis reads exactly one field: the immutable job-text value
+accepted when the job is saved from page-derived relevant text, selected text,
+or manual paste after preview. It does not read source URL, page title,
+timestamps, collection labels, user notes, later metadata edits, or correction text;
+only text accepted into that job-text value before save can be analyzed.
 
 The exact job-text string is encoded as UTF-8 without trimming, Unicode
 normalization, line-ending conversion, or locale-dependent transformation.
-Each result stores a zero-based, end-exclusive UTF-8 byte range and a digest of
-the exact analysis text. A viewer must reject or flag a span when the digest
-does not match. This makes offsets reproducible across supported runtimes and
-keeps them traceable to immutable original evidence.
+Each result stores a zero-based, end-exclusive UTF-8 byte range and the
+SHA-256 source digest of the exact analysis text. A viewer must reject or flag
+a span when the digest does not match. This makes offsets reproducible across
+supported runtimes and keeps them traceable to immutable original evidence.
 
 ## Boundary questions for WP-02
 
@@ -90,7 +88,7 @@ keeps them traceable to immutable original evidence.
 3. Which fields are stored before preview, at save, and after correction?
 4. What URL schemes are required, and how are dangerous schemes displayed?
 5. How will WP-02 implement and test the documented UTF-8 byte-offset and
-   analysis-text-digest convention?
+   SHA-256 source-digest convention?
 6. How are IndexedDB upgrades interrupted, recovered, and tested?
 7. What diagnostics can be recorded without exposing job text or URLs?
 8. How are MVP exports bounded, schema-validated, and protected from CSV

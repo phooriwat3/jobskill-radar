@@ -15,6 +15,12 @@ qualification signals that can be corrected without rewriting the source.
 The smallest useful product is local-first: it works without an account,
 cloud synchronization, external AI, or a server retrieving source URLs.
 
+The analysis contract is fixed across the product documents: analysis uses
+exactly the immutable job-text value accepted when the job is saved. Evidence
+uses zero-based, end-exclusive offsets into the exact UTF-8 bytes plus their
+SHA-256 source digest. Later metadata edits, including URL/title changes,
+notes, collections, and corrections, are not analysis input.
+
 ## Users and hypotheses
 
 The following personas are hypotheses until representative user evidence is
@@ -90,8 +96,9 @@ not an accessibility claim.
   confidence meaning, and unique-per-job frequency.
 - User accept/reject/add/remap corrections without altering original evidence.
 - JSON and CSV export, individual/all-data deletion, and offline operation.
-- Export is the MVP data boundary; import/interchange is deferred unless a
-  separate approval and ADR/change record adds it.
+- Export is the MVP data boundary; import/interchange behavior and
+  invalid-import testing are deferred unless separately approved and added
+  by an ADR/change record.
 - Planned security, accessibility, and accuracy verification.
 
 ### Deferred
