@@ -1,9 +1,25 @@
 # WP-01 Planning Report and Implementation Handoff
 
-Status: Proposed — awaiting approval  
-Work package: WP-01 Discovery, scope, and engineering governance  
-Planning date: 2026-09-17  
+Status: Approved for WP-01 implementation; corrective review open
+Work package: WP-01 Discovery, scope, and engineering governance
+Planning date: 2026-09-17
 Planning boundary: documentation and governance only; no product implementation is authorized
+
+## Approval and ownership record
+
+Approval evidence: the user instruction in the Codex session on 2026-09-17
+stated that the WP-01 plan was approved. The repository does not record a
+named approver, so no person is invented here.
+
+Implementation baseline: the approved plan was implemented in commit
+cd230e8. An independent review of 7eace60..cd230e8 found corrective
+documentation findings. This plan remains the approved scope; the corrective
+implementation is documentation-only and is tracked in
+docs/handoffs/wp-01-acceptance.md.
+
+Owner status: accountable roles are documented, but named individuals have
+not been assigned. No package may require an individual approval until the
+role is assigned to a person.
 
 ## 1. Executive decision summary
 
@@ -13,7 +29,7 @@ WP-01 should establish the product and engineering sources of truth. It should n
 
 ## 2. Repository inspection and conflicts
 
-### 2.1 Observed state
+### 2.1 Observed state (historical planning snapshot)
 
 The planning session inspected the workspace at `C:\Projects\JobSkillRadar` on 2026-09-17.
 
@@ -22,15 +38,15 @@ Observed files:
 - `docs/plans/master-plan.md`
 - `docs/prompts/wp-01/planning.md`
 
-No application source, package manifest, build configuration, CI configuration, tests, ontology, corpus, ADRs, risk register, or other project files were observed. The directory is not currently a Git worktree: `git status --short` returned “not a git repository.” Consequently, history, branches, tracked/untracked state, and unrelated user changes cannot be assessed through Git.
+At the initial planning inspection on 2026-09-17, no application source, package manifest, build configuration, CI configuration, tests, ontology, corpus, ADRs, risk register, or other project files were observed. That historical inspection predated the documentation baseline in commit `cd230e8`; the current repository is a Git worktree and its present state is recorded in the approval and corrective-verification sections below.
 
 ### 2.2 Conflicts and corrections to existing assumptions
 
-- The master plan says the repository contains no files or directories. That statement is now stale because the two documentation files above exist. Its intended meaning—there is no implementation baseline—remains consistent with the observed state.
-- Both existing Markdown files display mojibake in at least one punctuation character (for example, a dash rendered as `�?"` or `â€”`). The implementation session should normalize documentation encoding to UTF-8 after confirming the intended characters; this plan does not silently rewrite those files.
+- The initial master-plan observation said the repository contained no files or directories. That statement is historical and superseded by the documentation baseline; its intended meaning—there was no implementation baseline—remains consistent.
+- The initial planning report also noted possible mojibake. A current read-only inspection confirms that tracked Markdown files are valid UTF-8 with LF line endings; that historical concern is superseded by the current encoding check and is not a present repository-state finding.
 - The name `jobskill-radar` appears in the master plan, while the workspace is `JobSkillRadar`. A canonical product/repository slug is not yet evidenced and should be recorded as a documentation convention before tooling depends on it.
 - The master plan labels Java 21/Spring Boot 3.x as a later backend direction. Since the local MVP requires no backend, these versions must not become MVP dependencies.
-- No documentation convention exists beyond `docs/plans` and `docs/prompts`. The paths in section 17 are therefore proposed conventions, not established ones.
+- The initial planning report found no documentation convention beyond `docs/plans` and `docs/prompts`. The current baseline establishes the section 17 Markdown layout and source maps; future public naming remains subject to ADR-0010.
 
 ### 2.3 Unknowns
 
@@ -454,7 +470,7 @@ WP-01 verifies documentation quality, not product behavior. It should:
 - Source URLs are references and must not be fetched by a backend.
 - User/page text is untrusted at every boundary.
 - No implementation exists to validate; all product controls remain planned.
-- The current directory has no observable Git metadata.
+- Git metadata and documentation history are observable in the current repository; the corrective worktree is intentionally dirty until review completes and must not be described as clean.
 
 ### 14.3 Evidence backlog
 
@@ -488,7 +504,7 @@ The implementation session should create a coherent documentation baseline only:
 
 | ID | Acceptance criterion |
 |---|---|
-| WP01-AC-01 | Repository inspection is dated and states that Git metadata and implementation were not observed, without claiming the workspace is empty. |
+| WP01-AC-01 | Repository inspection is dated and distinguishes the historical planning snapshot from the current Git worktree and documentation baseline, without claiming the workspace is empty. |
 | WP01-AC-02 | MVP, deferred scope, and non-goals are explicit and consistent across product, roadmap, and requirements documents. |
 | WP01-AC-03 | Every requirement has a unique stable ID, category, priority/release, verification approach, and responsible work package in traceability data. |
 | WP01-AC-04 | Personas and end-to-end journeys cover standard, bilingual, privacy, correction, fallback, export, deletion, and accessibility needs; unvalidated personas are labeled hypotheses. |
@@ -506,11 +522,11 @@ The implementation session should create a coherent documentation baseline only:
 
 ## 17. Exact planned file changes
 
-Paths are proposed because no established convention exists beyond `docs/plans` and `docs/prompts`.
+Paths were proposed during initial planning; the current documentation baseline uses the listed Markdown layout and records its source maps in README and the master plan.
 
 ### Modify
 
-- `docs/plans/master-plan.md` — correct stale repository-baseline wording, normalize confirmed encoding issues, link WP-01 sources of truth, and preserve its high-level role.
+- `docs/plans/master-plan.md` — correct stale repository-baseline wording, record the confirmed UTF-8/LF state, link WP-01 sources of truth, and preserve its high-level role.
 
 ### Create
 
@@ -549,38 +565,52 @@ Do not create package manifests, source directories, CI workflows, lockfiles, ge
 
 ### 18.1 Preconditions
 
-1. Obtain approval of this plan.
-2. Identify product, project, security/privacy, architecture, analysis/evaluation, and accessibility decision owners.
-3. Determine whether this directory should be initialized as a Git repository or is nested/mirrored incorrectly. Do not initialize or connect a remote without authorization.
-4. Confirm UTF-8 and line-ending documentation conventions before normalizing existing files.
+1. Approval of this plan is recorded above; independent corrective re-review remains required before WP-01 is finally accepted.
+2. Record named product, project, security/privacy, architecture, analysis/evaluation, and accessibility decision owners; the current role assignments remain unresolved.
+3. Git metadata, branch `main`, and history are confirmed. Do not initialize another repository or connect a remote without explicit authorization.
+4. Current changed Markdown files are confirmed UTF-8/LF; preserve that convention and rerun the byte check after later edits.
 
 ### 18.2 Implementation sequence
+
+The sequence below records the original implementation sequence; the corrective results and remaining review gate are recorded in the acceptance handoff.
 
 1. Re-inspect files and source-control state; record differences from this snapshot.
 2. Establish the documentation map and naming convention.
 3. Create product scope, personas, journeys, requirements, glossary, and traceability.
 4. Create roadmap and governance sources of truth.
 5. Run stakeholder/threat/privacy/accessibility/corpus discovery and label absent evidence.
-6. Create risk method/register and assign named owners.
+6. Create the risk method/register and record role owners plus unresolved named assignments without inventing people.
 7. Create ADR template/index and populate all initial ADRs as `Proposed` unless evidence and authorized approval justify another status.
 8. Create security/privacy, accessibility, accuracy, and test plans.
-9. Correct the master plan’s stale baseline and encoding only after confirming intended text.
+9. Correct the master plan’s stale baseline and encoding statement after confirming the current repository state and UTF-8/LF bytes.
 10. Run the checks below, complete the WP-01 acceptance record, request independent review, and hand off to WP-02 planning.
 
 ### 18.3 Exact checks to run from repository root
 
-These are handoff commands, not commands executed as part of this planning session. Use PowerShell syntax and adapt only if approved tooling exists.
+These are handoff commands. Run them from the repository root with
+PowerShell. Record the exact command, tool/version, date, exit code, output
+location, and limitation in docs/handoffs/wp-01-acceptance.md. A dirty
+worktree after an implementation or corrective session is expected; do not
+describe it as clean.
 
-```powershell
+~~~powershell
+rg --version
+git --version
+$PSVersionTable.PSVersion
 rg --files
 git status --short
-rg -n "TBD|TODO|FIXME|Assumption|Unknown|Proposed|Accepted|verified|compliant|perfect" README.md docs
-rg -n "^(FR|NFR|SEC|PRIV|A11Y|ACC)-[0-9]{3}" docs/product/requirements.md
-rg -n "^#|Status:|Decision:|Related requirements:|Related risks:" docs/adr
-rg -n "R-[0-9]{3}|Critical|High|planned|implemented|tested|verified" docs/risks
-```
+rg -n 'TBD|TODO|FIXME|Assumption|Unknown|Proposed|Accepted|verified|compliant|perfect' README.md docs
+rg -n '^(FR|NFR|SEC|PRIV|A11Y|ACC)-[0-9]{3}' docs/product/requirements.md
+rg -n '^#|Status:|Decision:|Related requirements:|Related risks:|Related ADRs:|Evidence links:' docs/adr
+rg -n 'R-[0-9]{3}|Critical|High|planned|implemented|tested|verified|Residual likelihood/impact/score|Accepting authority' docs/risks
+git diff --check
+~~~
 
-Then run the repository-approved Markdown/link/Mermaid checks if WP-01 establishes them without installing project dependencies. Record the command, tool/version, date, exit code, and output location in `docs/handoffs/wp-01-acceptance.md`. If Git is still unavailable, record that check as blocked rather than fabricating a clean-worktree result.
+Then run repository-approved Markdown/link/Mermaid checks if available without
+installing project dependencies. Also run the read-only requirement-fragment,
+local-link, encoding/line-ending, duplicate-ID, Mermaid-fence, and risk-field
+checks established by the corrective acceptance record. If a tool is absent,
+record it as not run with the tool-discovery result; do not fabricate a pass.
 
 ### 18.4 Review checklist
 
@@ -589,7 +619,10 @@ Then run the repository-approved Markdown/link/Mermaid checks if WP-01 establish
 - [ ] Scope and exclusions match in all documents.
 - [ ] Requirement IDs are unique, categorized, testable, and traceable.
 - [ ] User journeys include preview, fallback, evidence, correction, export, deletion, and offline use.
+- [ ] Manual selection/paste fallback and accessible evidence/data-control journeys are explicit.
 - [ ] Original evidence and corrections are distinct in requirements and glossary.
+- [ ] Analysis input and reproducible UTF-8 byte offsets are explicit.
+- [ ] MVP export-only scope is not confused with deferred import/interchange.
 - [ ] Unique-per-job counting and evidence traceability are unambiguous.
 - [ ] Untrusted content, URL, message, CSV, corpus, sync, and AI risks are present.
 - [ ] Risk scores follow the matrix; controls are not marked verified without evidence.
@@ -603,6 +636,11 @@ Then run the repository-approved Markdown/link/Mermaid checks if WP-01 establish
 
 ## 19. Planning-session result
 
-This planning session created only this proposed WP-01 planning report. It did not implement application features, initialize tooling, install dependencies, create infrastructure, run product tests, select unproven technologies, or claim that planned controls are implemented or verified.
+This planning session created the approved WP-01 planning report. It did not
+implement application features, initialize tooling, install dependencies,
+create infrastructure, run product tests, select unproven technologies, or
+claim that planned controls are implemented or verified. The implementation
+and corrective review records are linked above.
 
-Implementation must wait for explicit approval of this WP-01 plan.
+WP-02 implementation must wait for the corrective review to close and for
+named decision owners to be assigned.

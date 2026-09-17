@@ -1,7 +1,7 @@
 # JobSkillRadar
 
-Status: WP-01 documentation and governance baseline implemented; product
-implementation has not started.
+Status: WP-01 approved; corrective documentation implementation in progress;
+product implementation has not started.
 
 JobSkillRadar is planned as a local-first tool for capturing job
 advertisements that a user is already viewing, storing them on the device,
@@ -12,10 +12,11 @@ backend URL fetching, telemetry, or AI.
 ## Current repository state
 
 On 2026-09-17, the repository was re-inspected at
-C:\Projects\JobSkillRadar. Git metadata exists; the pre-WP-01 worktree was
-clean on branch main at 7eace60. The repository had documentation only.
-The WP-01 changes in this working tree are documentation and governance
-artifacts and are intentionally not yet committed.
+C:\Projects\JobSkillRadar. Git metadata exists; commit cd230e8 was checked
+out on branch main and the worktree was clean at the start of corrective
+implementation. The repository has documentation only. The corrective
+changes in this working tree are documentation and governance artifacts and
+are intentionally not yet committed.
 
 There is no extension, dashboard, API, package manifest, lockfile, CI
 workflow, database schema, executable test suite, or installed project
@@ -26,7 +27,8 @@ dependency in this repository.
 The local MVP covers user-initiated capture, preview/edit, immutable original
 evidence, local collections, deterministic Thai/English classification,
 evidence snippets, correction overlays, comparison, export, deletion, and
-security/accessibility/accuracy verification planning.
+security/accessibility/accuracy verification planning. It supports export
+only; import/interchange remains deferred unless separately approved.
 
 Cloud synchronization, AI assistance, backend services, mass crawling,
 access-control circumvention, automatic job applications, file upload, and
@@ -35,20 +37,21 @@ complete boundary.
 
 ## Documentation map
 
-- Master plan: docs/plans/master-plan.md
-- Product brief: docs/product/product-brief.md
-- Requirements: docs/product/requirements.md
-- Traceability: docs/product/traceability.md
-- Glossary: docs/product/glossary.md
-- Work-package roadmap: docs/roadmap/work-packages.md
-- Engineering governance: docs/governance/engineering-governance.md
-- Review guide: docs/governance/review-guide.md
-- Risk method and register: docs/risks/method.md and docs/risks/risk-register.md
-- ADR index: docs/adr/README.md
-- Security and privacy baseline: docs/security/security-privacy-baseline.md
-- Quality plans: docs/quality/test-strategy.md, including accessibility and accuracy
-- WP-01 acceptance: docs/handoffs/wp-01-acceptance.md
-- WP-02 planning handoff: docs/handoffs/wp-02-planning-handoff.md
+- [Approved WP-01 plan](docs/plans/wp-01-plan.md)
+- [Master plan](docs/plans/master-plan.md)
+- [Product brief](docs/product/product-brief.md)
+- [Requirements](docs/product/requirements.md)
+- [Traceability](docs/product/traceability.md)
+- [Glossary](docs/product/glossary.md)
+- [Work-package roadmap](docs/roadmap/work-packages.md)
+- [Engineering governance](docs/governance/engineering-governance.md)
+- [Review guide](docs/governance/review-guide.md)
+- [Risk method](docs/risks/method.md) and [risk register](docs/risks/risk-register.md)
+- [ADR index](docs/adr/README.md)
+- [Security and privacy baseline](docs/security/security-privacy-baseline.md)
+- [Quality plans](docs/quality/test-strategy.md), including accessibility and accuracy
+- [WP-01 acceptance and corrective review handoff](docs/handoffs/wp-01-acceptance.md)
+- [WP-02 planning handoff](docs/handoffs/wp-02-planning-handoff.md)
 
 All Markdown documentation is maintained as UTF-8 with LF line endings. A
 document may be Proposed, Draft, Planned, Implemented, Tested, or Verified;

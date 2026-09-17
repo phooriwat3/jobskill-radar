@@ -1,12 +1,14 @@
 # ADR-0007: Optional Backend Runtime Versions
 
-Status: Proposed  
-Date: 2026-09-17  
-Owners: Architecture owner, backend security owner, operations owner  
-Deciders: Architecture and product owners; named individuals not assigned  
-Target package: WP-06  
-Related requirements: NFR-006, NFR-007, SEC-008, SEC-010, PRIV-003  
+Status: Proposed
+Date: 2026-09-17
+Owners: Architecture owner, backend security owner, operations owner
+Deciders: Architecture and product owners; named individuals not assigned
+Target package: WP-06
+Related requirements: NFR-006, NFR-007, SEC-008, SEC-010, PRIV-003
 Related risks: R-007, R-013, R-014
+Related ADRs: [ADR-0001](0001-frontend-workspace-and-tooling.md), [ADR-0008](0008-cloud-authentication.md)
+Evidence links: [ADR template](template.md), [ADR index](README.md), [Roadmap](../roadmap/work-packages.md), [Risk register](../risks/risk-register.md)
 
 ## Context
 

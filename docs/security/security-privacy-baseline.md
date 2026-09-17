@@ -1,7 +1,7 @@
 # Security and Privacy Baseline
 
-Status: Preliminary - WP-01 planning baseline  
-Date: 2026-09-17  
+Status: Preliminary - WP-01 planning baseline
+Date: 2026-09-17
 Owners: Security owner and privacy owner; named individuals not assigned
 
 This document describes planned boundaries and evidence needs. It does not
@@ -11,7 +11,8 @@ has been completed.
 ## Security and privacy principles
 
 - Capture is explicit and user initiated.
-- Page text, pasted text, URLs, imports, exports, and future model output are
+- Page text, pasted text, URLs, exports, future approved imports, and future
+  model output are
   untrusted data.
 - Original evidence is separate from edits, analysis, corrections, and
   exports.
@@ -35,12 +36,13 @@ and WP-05. The default MVP transmission is none.
 | Page-derived text | Visible job content captured after user action | Local capture flow, then local store | None | Delete with captured job; define partial-failure behavior | Planned |
 | Selected/pasted text | User-selected or manually supplied fallback | Local capture flow, then local store | None | Delete with captured job | Planned |
 | Source URL/title/metadata | Context for evidence and navigation | Local captured-job record | None | Delete with captured job; validate URL schemes | Planned |
-| Original evidence | Exact accepted text/metadata used as source truth | Versioned local store | None | Immutable until explicit deletion; define backup behavior | Planned |
+| Original evidence | Exact accepted job text/metadata used as source truth | Versioned local store | None | Immutable until explicit deletion; define backup behavior | Planned |
+| Analysis text and digest | Exact saved job-text field and its UTF-8 digest used by deterministic analysis | Versioned local store | None | Delete with original evidence; digest detects mismatched spans | Planned |
 | Edited capture fields | User organization and analysis input | Separate local record/overlay | None | Delete with related job | Planned |
 | Derived analysis | Canonical items, categories, confidence, evidence spans, analyzer version | Local derived records | None | Delete/recompute with related job | Planned |
 | Corrections | User accept/reject/add/remap decisions | Separate local correction records | None | Delete with related job and exports | Planned |
 | Collections | User grouping of captured jobs | Local store | None | Individual/all-data deletion | Planned |
-| JSON/CSV exports | User-requested backup/report | User-selected destination | Only if user moves it | User controls external copy; product cannot revoke copies | Planned |
+| JSON/CSV exports | User-requested backup/report; export only in MVP | User-selected destination | Only if user moves it | User controls external copy; product cannot revoke copies | Planned |
 | Corpus samples/annotations | Permitted, minimized evaluation material | Versioned project data when approved | None by default | Permission, retention, and removal register required | Proposed |
 | Future sync data | Optional later cloud copy | WP-06 service if approved | Opt-in only | Account/object deletion propagation required | Deferred |
 | Future AI request/response | Optional provider-assisted analysis | WP-07 provider boundary if approved | Opt-in only | Provider retention and deletion must be disclosed | Deferred |
@@ -50,7 +52,7 @@ and WP-05. The default MVP transmission is none.
 ~~~mermaid
 flowchart LR
   Page[User-viewed page and selected text] -->|explicit action| Capture[Extension capture boundary]
-  Paste[Manual paste/import] --> Capture
+  Paste[Manual paste fallback] --> Capture
   Capture -->|validated untrusted data| Local[Local versioned store]
   Local --> Dashboard[Local dashboard]
   Dashboard --> Export[User-requested export]
@@ -59,9 +61,26 @@ flowchart LR
   Sync -.-> Auth[Future identity and authorization]
 ~~~
 
-The dashed paths are not part of the MVP. Each crossing needs a separate
+The dashed paths are not part of the MVP. Import/interchange is also not part
+of the MVP unless separately approved. Each later crossing needs a separate
 schema, consent, threat model, size limit, failure policy, and verification
 record.
+
+## Analysis-text and evidence contract
+
+Deterministic analysis reads exactly one field: the saved original-evidence
+job-text field accepted from page-derived relevant text, selected text, or
+manual paste after preview. It does not read source URL, page title,
+timestamps, collection labels, user notes, later edits, or correction text
+unless the user deliberately copied that text into the job-text field before
+save.
+
+The exact job-text string is encoded as UTF-8 without trimming, Unicode
+normalization, line-ending conversion, or locale-dependent transformation.
+Each result stores a zero-based, end-exclusive UTF-8 byte range and a digest of
+the exact analysis text. A viewer must reject or flag a span when the digest
+does not match. This makes offsets reproducible across supported runtimes and
+keeps them traceable to immutable original evidence.
 
 ## Boundary questions for WP-02
 
@@ -70,11 +89,12 @@ record.
 2. Which permissions and host patterns are essential for each capture journey?
 3. Which fields are stored before preview, at save, and after correction?
 4. What URL schemes are required, and how are dangerous schemes displayed?
-5. What is the exact Unicode/offset convention for evidence spans?
+5. How will WP-02 implement and test the documented UTF-8 byte-offset and
+   analysis-text-digest convention?
 6. How are IndexedDB upgrades interrupted, recovered, and tested?
 7. What diagnostics can be recorded without exposing job text or URLs?
-8. How are exports bounded, schema-validated, and protected from CSV formula
-   execution?
+8. How are MVP exports bounded, schema-validated, and protected from CSV
+   formula execution? What separate approval would be required for import?
 9. What deletion means for derived data, corrections, backups, and future
    synchronized copies?
 10. What user consent and provider retention disclosures would be required
@@ -89,7 +109,7 @@ WP-02 should conduct a structured workshop covering:
   oversized payloads.
 - Permission/host overreach and cross-context access.
 - Local store exposure, corruption, migration, export, and deletion.
-- CSV/JSON injection and unsafe import behavior.
+- CSV/JSON injection and any separately approved import behavior.
 - Corpus provenance, personal-data leakage, annotation access, and leakage
   between authoring and evaluation splits.
 - Future sync authentication, object authorization, conflicts, recovery, and
@@ -110,7 +130,7 @@ of a threat is not verification of its control.
 | Messages | Explicit schema, sender/context validation, size limits, deny-by-default | SEC-004 | Contract and negative tests |
 | URLs | Required-scheme allowlist; no executable dangerous links | SEC-005, SEC-009 | URL fixtures and network observation |
 | Local data | Separate original/derived/correction records; versioned migration | FR-004, NFR-003, PRIV-004 | Data contract, migration, deletion tests |
-| Export/import | Bounded schema, visible fields, safe CSV handling | SEC-006, FR-012 | Malicious fixtures and round-trip tests |
+| MVP export | Bounded schema, visible fields, safe CSV handling; import is deferred | SEC-006, FR-012 | Malicious-cell and export round-trip tests |
 | Secrets/dependencies | No client secrets; provenance/update policy | SEC-007, SEC-010 | Build/secret/dependency review |
 | Future sync | Authentication plus independent object authorization | SEC-008, FR-014 | Multi-user negative tests |
 | Future AI | Explicit opt-in, schema/evidence validation, deterministic fallback | FR-015, PRIV-003 | Consent, outage, and comparison evidence |
@@ -133,8 +153,10 @@ All controls above are planned, not implemented or verified.
 ## Required downstream evidence
 
 WP-02 returns the architecture/data-flow/trust-boundary and threat models.
-WP-03 returns permission, message, hostile-input, URL, and capture evidence.
+WP-03 returns permission, message, hostile-input, URL, capture, manual-fallback,
+and analysis-text evidence.
 WP-04 returns corpus provenance/minimization and ontology evidence. WP-05
-returns local-store, correction, export, deletion, and accessibility evidence.
+returns local-store, correction, export-only, deletion, and accessibility
+evidence. Any import evidence requires separate approval.
 WP-06/WP-07 return authorization, consent, provider, and fallback evidence if
 those packages are approved.

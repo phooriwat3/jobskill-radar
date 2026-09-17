@@ -1,7 +1,7 @@
 # Accuracy Evaluation Plan
 
-Status: Proposed - baseline and targets not yet available  
-Date: 2026-09-17  
+Status: Proposed - baseline and targets not yet available
+Date: 2026-09-17
 Owners: Evaluation lead and analysis lead; named individuals not assigned
 
 This plan defines how to measure deterministic analysis. It does not claim
@@ -19,6 +19,21 @@ The evaluation version must bind:
 - Scoring specification.
 - Split manifest.
 - Evaluation output and error analysis.
+
+## Analysis input and evidence offsets
+
+The analyzer input is exactly the saved original-evidence job-text field.
+That field may come from relevant page-derived text, selected text, or manual
+paste after preview. Source URL, page title, capture time, collection labels,
+user notes, later edits, and correction text are excluded unless deliberately
+copied into job text before save.
+
+The analyzer consumes the exact UTF-8 byte sequence of that field. It must not
+trim, normalize Unicode, convert line endings, or apply locale-dependent
+transforms before calculating offsets. Each predicted span is a zero-based,
+end-exclusive UTF-8 byte range plus a digest of the exact analysis text.
+Evaluation fixtures must verify that the same input bytes, analyzer version,
+ontology version, and configuration reproduce the same spans and digest.
 
 ## Corpus governance
 
@@ -42,7 +57,7 @@ removal path, and limitations.
 
 The annotation guide must specify:
 
-- Annotation unit and Unicode/offset convention.
+- Annotation unit and the documented UTF-8 byte-offset/digest convention.
 - Canonical item, source span, category, required/preferred/unknown label,
   and language.
 - Aliases, negation, headings, lists, experience ranges, implicit signals,

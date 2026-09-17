@@ -1,12 +1,14 @@
 # ADR-0004: Bilingual Ontology Governance
 
-Status: Proposed  
-Date: 2026-09-17  
-Owners: Analysis lead, evaluation lead, privacy owner  
-Deciders: Analysis and product owners; named individuals not assigned  
-Target package: WP-04  
-Related requirements: FR-007, FR-009, FR-010, ACC-001, ACC-004, ACC-006, PRIV-006  
+Status: Proposed
+Date: 2026-09-17
+Owners: Analysis lead, evaluation lead, privacy owner
+Deciders: Analysis and product owners; named individuals not assigned
+Target package: WP-04
+Related requirements: FR-007, FR-009, FR-010, ACC-001, ACC-004, ACC-006, PRIV-006
 Related risks: R-004, R-005, R-014
+Related ADRs: [ADR-0003](0003-local-data-model-and-migrations.md), [ADR-0005](0005-corpus-and-accuracy-gates.md)
+Evidence links: [ADR template](template.md), [ADR index](README.md), [Glossary](../product/glossary.md), [Accuracy plan](../quality/accuracy-evaluation-plan.md)
 
 ## Context
 

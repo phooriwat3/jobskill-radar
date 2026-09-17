@@ -1,12 +1,14 @@
 # ADR-0002: Local Dashboard Packaging
 
-Status: Proposed  
-Date: 2026-09-17  
-Owners: Architecture owner, dashboard lead, extension lead  
-Deciders: Architecture owner and product owner; named individuals not assigned  
-Target package: WP-02  
-Related requirements: FR-005, FR-011, NFR-001, SEC-003, PRIV-001  
+Status: Proposed
+Date: 2026-09-17
+Owners: Architecture owner, dashboard lead, extension lead
+Deciders: Architecture owner and product owner; named individuals not assigned
+Target package: WP-02
+Related requirements: FR-005, FR-011, NFR-001, SEC-003, PRIV-001
 Related risks: R-002, R-003, R-013, R-014
+Related ADRs: [ADR-0001](0001-frontend-workspace-and-tooling.md), [ADR-0003](0003-local-data-model-and-migrations.md), [ADR-0009](0009-accessibility-target-and-matrix.md)
+Evidence links: [ADR template](template.md), [ADR index](README.md), [Product brief](../product/product-brief.md), [Risk register](../risks/risk-register.md)
 
 ## Context
 

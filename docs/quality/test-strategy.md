@@ -1,7 +1,7 @@
 # Test Strategy
 
-Status: Planned - WP-01 documentation and downstream verification strategy  
-Date: 2026-09-17  
+Status: Planned - WP-01 documentation and downstream verification strategy
+Date: 2026-09-17
 Owner role: Project lead with package owners; named individuals not assigned
 
 WP-01 verifies documentation and governance quality. It does not create a
@@ -12,8 +12,8 @@ product test suite or claim product behavior.
 | Layer | Planned scope | Primary packages |
 |---|---|---|
 | Unit | Normalization, aliases, distinctions, required/preferred rules, URL/schema validation, unique-per-job aggregation, export escaping | WP-03/WP-04/WP-05 |
-| Property/fuzz | Unicode and mixed-language text, malformed messages/imports, large inputs, offsets, deterministic/idempotent behavior | WP-03/WP-04/WP-05 |
-| Contract | Extension messages, local schema/migrations, analyzer output, exports/imports, future API schemas | WP-02/WP-03/WP-04/WP-05/WP-06 |
+| Property/fuzz | Unicode and mixed-language text, malformed messages, large inputs, UTF-8 byte offsets, deterministic/idempotent behavior | WP-03/WP-04/WP-05 |
+| Contract | Extension messages, local schema/migrations, analyzer output, MVP exports, future approved import schemas, and future API schemas | WP-02/WP-03/WP-04/WP-05/WP-06 |
 | Integration | Capture-to-store, store-to-analysis, correction overlay, deletion, migration, sync authorization/conflicts | WP-03 through WP-07 |
 | End-to-end | Offline capture, preview/save, analyze, correct, compare, export, and delete | WP-03/WP-05 |
 | Security | Hostile markup, script-like text, unsafe URLs, sender confusion, message size, CSP assumptions, dependencies, multi-user authorization | WP-02/WP-03/WP-06/WP-08 |
@@ -31,10 +31,10 @@ product test suite or claim product behavior.
 | Determinism | Same input/configuration/version produces stable serialized output |
 | Bilingual analysis | Language/category slices, aliases, distinctions, unknown handling |
 | Unique-per-job count | Repeated mentions and alias fixtures count once |
-| Evidence | Every result links to source job and bounded span/snippet |
+| Evidence | Every result links to source job, exact analysis-text digest, and bounded UTF-8 byte span/snippet |
 | Correction | Accept/reject/add/remap overlay leaves evidence unchanged |
 | Comparison/filter | Accessible selection and unique-frequency behavior |
-| Export/import | Versioned schema, bounded fields, safe CSV, round-trip behavior |
+| Export only | Versioned JSON/CSV schema, bounded fields, safe CSV, and round-trip behavior; import only if separately approved |
 | Deletion | Job, collection, derived data, corrections, and all-data paths |
 | Offline | Network unavailable after installation does not block MVP journeys |
 
@@ -42,9 +42,10 @@ product test suite or claim product behavior.
 
 Use permitted and minimized corpus data for accuracy. Use synthetic hostile
 fixtures for scripts, unsafe URLs, oversized messages, formula-like CSV
-cells, malformed imports, Unicode edge cases, and permission/message
-confusion. Do not commit real advertisements or personal data without the
-corpus governance decision.
+cells, malformed messages, Unicode edge cases, UTF-8 byte-offset stability,
+and permission/message confusion. Do not commit real advertisements or
+personal data without the corpus governance decision. Import fixtures are
+deferred unless separately approved.
 
 ## Failure and recovery
 

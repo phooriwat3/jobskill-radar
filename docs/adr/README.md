@@ -1,7 +1,11 @@
 # Architecture Decision Records
 
-Status: Proposed index - no initial decision is accepted  
+Status: Proposed index - no initial decision is accepted
 Date: 2026-09-17
+
+Source links: [ADR template](template.md), [Requirements](../product/requirements.md),
+[Traceability](../product/traceability.md), [Risk register](../risks/risk-register.md),
+[Engineering governance](../governance/engineering-governance.md)
 
 ## Lifecycle
 

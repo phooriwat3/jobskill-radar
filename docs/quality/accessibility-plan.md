@@ -1,7 +1,7 @@
 # Accessibility Plan
 
-Status: Proposed - target not selected  
-Date: 2026-09-17  
+Status: Proposed - target not selected
+Date: 2026-09-17
 Owner role: UX/accessibility owner; named individual not assigned
 
 WP-01 defines the selection and evidence process. It does not claim a WCAG
@@ -16,6 +16,24 @@ comparison, export, deletion, and any future account or AI consent flow.
 The plan includes Thai, English, mixed-language content, long tokens, source
 snippets, uncertainty, hostile-looking text, responsive layouts, and browser
 zoom.
+
+## Required journeys
+
+### Manual fallback journey
+
+When automatic extraction is empty or incomplete, the user reaches the
+selection or paste fallback with keyboard navigation, supplies the intended
+job text, reviews the preview, and receives a clear non-sensitive status if
+capture fails. The fallback must remain usable without relying on a page
+adapter or network request.
+
+### Accessible evidence and deletion journey
+
+A keyboard-only or assistive-technology user invokes capture, reviews the
+preview, moves through evidence snippets and confidence/correction states,
+compares jobs, exports data, and deletes a job or all local data. Focus,
+names, status changes, errors, Thai/English text, long tokens, zoom, and
+reflow are checked at each step. Color alone must not communicate a decision.
 
 ## Target selection
 

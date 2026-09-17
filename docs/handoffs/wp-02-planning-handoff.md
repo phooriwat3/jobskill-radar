@@ -1,16 +1,18 @@
 # WP-02 Planning Handoff
 
-Status: Ready for WP-02 planning; implementation not authorized  
-Date: 2026-09-17  
-Source: WP-01 documentation baseline and acceptance report  
-Gate: Independent WP-01 review remains required before WP-01 is finally accepted
+Status: Ready for independent re-review and subsequent WP-02 planning; implementation not authorized
+Date: 2026-09-17
+Source: WP-01 corrective documentation baseline and acceptance/review handoff
+Gate: Independent re-review of the corrective change set remains required before WP-01 is finally accepted
 
 ## Handoff purpose
 
 WP-02 should turn the approved local-first product boundary into an
 evidence-backed architecture and security foundation. This handoff is a
 planning input, not permission to implement code, install dependencies, or
-create infrastructure.
+create infrastructure. The local-MVP critical path excludes WP-06 and WP-07;
+they remain optional later branches whose controls may feed WP-08/WP-09 only
+after separate approval.
 
 ## Approved inputs
 
@@ -32,6 +34,8 @@ create infrastructure.
   docs/risks/method.md and docs/risks/risk-register.md
 - Proposed decision records:
   docs/adr/README.md and ADR-0001 through ADR-0010
+- Approved plan and corrective review evidence:
+  docs/plans/wp-01-plan.md and docs/handoffs/wp-01-acceptance.md
 - Preliminary data inventory and trust-boundary questions:
   docs/security/security-privacy-baseline.md
 - Accessibility, accuracy, and test planning:
@@ -45,13 +49,15 @@ create infrastructure.
    accessibility owners and named reviewers.
 2. Produce architecture and trust-boundary diagrams covering page capture,
    extension contexts, local store, dashboard, export, and explicitly
-   deferred sync/AI paths.
+   deferred sync/AI paths. Import/interchange is not an MVP input unless
+   separately approved.
 3. Run a time-boxed frontend/tooling compatibility spike and update
    ADR-0001 with official support, MV3/browser, reproducibility,
    license/security, and update evidence.
 4. Decide or time-box local dashboard packaging in ADR-0002.
-5. Define the local data contract, stable IDs, evidence offsets, migrations,
-   recovery, quotas, and export compatibility in ADR-0003.
+5. Define the local data contract, stable IDs, analysis-text field, UTF-8
+   byte offsets/digest, migrations, recovery, quotas, and export compatibility
+   in ADR-0003.
 6. Define extension permission, host-access, message, URL, rendering, size,
    and network-observation checks for SEC-001 through SEC-010.
 7. Recommend the accessibility target and browser/assistive-technology matrix
@@ -70,7 +76,7 @@ create infrastructure.
 | Local data model and migrations | ADR-0003 | WP-03/WP-05 persistence |
 | Bilingual ontology governance | ADR-0004 | WP-04 implementation |
 | Corpus and accuracy gates | ADR-0005 | WP-04 evaluation |
-| Pre-sync interchange | ADR-0006 | WP-05 export/import and WP-06 planning |
+| Pre-sync interchange | ADR-0006 | WP-05 export; import only if separately approved, then WP-06 planning |
 | Backend runtime versions | ADR-0007 | WP-06 only; never MVP |
 | Cloud authentication | ADR-0008 | WP-06 only; never MVP |
 | Accessibility target/matrix | ADR-0009 | WP-05 UI implementation |
@@ -90,7 +96,9 @@ WP-02 must review these before implementation starts:
 - R-014: local MVP remains independent of cloud, AI, backend, and network.
 
 R-004/R-005 become implementation gates for WP-04. R-007/R-008 remain
-deferred gates for WP-06/WP-07 and must not enter the MVP critical path.
+deferred gates for WP-06/WP-07 and must not enter the local MVP critical path.
+WP-08 and WP-09 must still complete local-MVP hardening and validation
+without waiting for those optional branches.
 
 ## Stop/go conditions
 
@@ -120,9 +128,10 @@ the WP-02 Definition of Ready is met.
 ## Expected WP-02 outputs
 
 - Architecture overview and trust-boundary/data-flow diagrams.
-- Accepted or still-Proposed ADR updates with evidence links.
+- Accepted or still-Proposed ADR updates with related-ADR and evidence links.
 - Extension/dashboard packaging recommendation.
-- Local data contract, migration/recovery contract, and export boundary.
+- Local data contract, analysis-text/offset contract, migration/recovery
+  contract, and export-only boundary.
 - Permission, message, URL, rendering, dependency, and network-observation
   verification plan.
 - Accessibility target and browser/assistive-technology matrix.

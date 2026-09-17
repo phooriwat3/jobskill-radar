@@ -1,12 +1,14 @@
 # ADR-0006: Pre-Sync Export and Import Interchange
 
-Status: Proposed  
-Date: 2026-09-17  
-Owners: Architecture owner, dashboard lead, privacy owner  
-Deciders: Architecture and product owners; named individuals not assigned  
-Target package: WP-02/WP-05  
-Related requirements: FR-012, FR-013, FR-014, NFR-003, SEC-006, PRIV-004  
+Status: Proposed
+Date: 2026-09-17
+Owners: Architecture owner, dashboard lead, privacy owner
+Deciders: Architecture and product owners; named individuals not assigned
+Target package: WP-02/WP-05
+Related requirements: FR-012, FR-013, FR-014, NFR-003, SEC-006, PRIV-004
 Related risks: R-003, R-006, R-012
+Related ADRs: [ADR-0003](0003-local-data-model-and-migrations.md), [ADR-0008](0008-cloud-authentication.md)
+Evidence links: [ADR template](template.md), [ADR index](README.md), [Requirements](../product/requirements.md), [Security/privacy baseline](../security/security-privacy-baseline.md)
 
 ## Context
 
@@ -17,9 +19,10 @@ export, but interchange semantics are not decided.
 
 ## Decision scope
 
-This ADR decides whether a versioned import/export interchange is supported
-before WP-06 and which data, identity, deletion, and compatibility semantics
-it carries. It does not authorize cloud sync.
+The MVP supports export only. This ADR decides whether a separately approved
+versioned import/interchange is supported before WP-06 and which data,
+identity, deletion, and compatibility semantics it carries. It does not
+authorize cloud sync or add import to MVP scope.
 
 ## Options considered
 
@@ -45,7 +48,9 @@ support cost. Link the result to the local data model ADR.
 
 ## Decision
 
-Proposed only. WP-01 does not choose export/import support or a file schema.
+Proposed only. WP-01 accepts the export-only MVP boundary. Import/interchange
+remains deferred unless a separate approval and change record/ADR authorizes
+it.
 
 ## Consequences and tradeoffs
 

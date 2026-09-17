@@ -1,12 +1,14 @@
 # ADR-0010: Naming and Documentation Conventions
 
-Status: Proposed  
-Date: 2026-09-17  
-Owners: Project lead, product owner  
-Deciders: Product/project owners; named individuals not assigned  
-Target package: WP-01  
-Related requirements: PRIV-005, ACC-001, ACC-008  
+Status: Proposed
+Date: 2026-09-17
+Owners: Project lead, product owner
+Deciders: Product/project owners; named individuals not assigned
+Target package: WP-01
+Related requirements: PRIV-005, ACC-001, ACC-008
 Related risks: R-009, R-013, R-014
+Related ADRs: [ADR-0001](0001-frontend-workspace-and-tooling.md)
+Evidence links: [ADR template](template.md), [ADR index](README.md), [Engineering governance](../governance/engineering-governance.md), [Master plan](../plans/master-plan.md)
 
 ## Context
 

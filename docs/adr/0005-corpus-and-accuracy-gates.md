@@ -1,12 +1,14 @@
 # ADR-0005: Corpus and Accuracy Gates
 
-Status: Proposed  
-Date: 2026-09-17  
-Owners: Evaluation lead, analysis lead, privacy owner  
-Deciders: Evaluation and product owners; named individuals not assigned  
-Target package: WP-04  
-Related requirements: ACC-001 through ACC-008, PRIV-006, PRIV-007  
+Status: Proposed
+Date: 2026-09-17
+Owners: Evaluation lead, analysis lead, privacy owner
+Deciders: Evaluation and product owners; named individuals not assigned
+Target package: WP-04
+Related requirements: ACC-001 through ACC-008, PRIV-006, PRIV-007
 Related risks: R-004, R-005, R-014
+Related ADRs: [ADR-0004](0004-bilingual-ontology-governance.md)
+Evidence links: [ADR template](template.md), [ADR index](README.md), [Accuracy plan](../quality/accuracy-evaluation-plan.md), [Security/privacy baseline](../security/security-privacy-baseline.md)
 
 ## Context
 

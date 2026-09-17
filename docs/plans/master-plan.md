@@ -1,18 +1,31 @@
 # JobSkillRadar Master Plan
 
-Status: Draft - scope and governance baseline after WP-01 documentation implementation
+Status: Active - WP-01 approved; corrective review in progress
 Repository path: C:\Projects\JobSkillRadar
 Proposed product/repository slug: jobskill-radar
 Date: 2026-09-17
 Last repository inspection: 2026-09-17
 
+## WP-01 approval record
+
+WP-01 was approved for implementation by the user instruction recorded in
+this Codex session on 2026-09-17. The repository does not record a named
+approver; no person is invented here. The implementation baseline is commit
+cd230e8, and the corrective work described in the WP-01 acceptance report is
+the current uncommitted documentation change set.
+
 ## Current baseline
 
-The implementation-session inspection found an existing Git repository at
-C:\Projects\JobSkillRadar, on branch main, with HEAD at
+The original implementation-session inspection found an existing Git
+repository at C:\Projects\JobSkillRadar, on branch main, with HEAD at
 7eace60 (docs: add initial JobSkillRadar master plan). At the start of
-WP-01 implementation, git status --short returned no changes. The tracked
-baseline contained these documentation files:
+the original WP-01 implementation, git status --short returned no changes.
+That implementation was committed as cd230e8 (docs: implement WP-01
+governance baseline). At the start of corrective implementation, commit
+cd230e8 was checked out and git status --short again returned no changes.
+The corrective changes are intentionally uncommitted until review.
+
+The original tracked baseline contained these documentation files:
 
 - docs/plans/master-plan.md
 - docs/plans/wp-01-plan.md
@@ -31,9 +44,9 @@ observations that are superseded by this inspection. The approved planning
 report remains a planning record; current repository facts are recorded here
 and in the WP-01 acceptance report.
 
-The WP-01 changes are intentionally uncommitted while they are reviewed.
-Therefore, a post-change git status --short is expected to list the
-documentation changes and must not be described as a clean-worktree result.
+The current post-correction git status --short is expected to list only the
+documentation changes made by this corrective implementation. It must not be
+described as a clean-worktree result until those changes are committed.
 
 ## Product scope
 
@@ -107,7 +120,8 @@ These are open design decisions, not reasons to expand WP-01:
 4. Canonical local data model and IndexedDB migration strategy.
 5. Ontology coverage, alias governance, and bilingual annotation protocol.
 6. Accuracy targets and release thresholds after baseline measurement.
-7. Export/import interchange before optional synchronization.
+7. Export-only MVP schema and whether a separately approved import/interchange
+   is needed before optional synchronization.
 8. Cloud authentication and session model.
 9. Accessibility conformance target and browser/assistive-technology matrix.
 10. Canonical product/repository naming and documentation conventions.
@@ -124,36 +138,35 @@ flowchart TD
   WP02 --> WP04[WP-04 analysis and ontology]
   WP03 --> WP05[WP-05 local dashboard and reports]
   WP04 --> WP05
-  WP02 --> WP06[WP-06 optional backend and sync]
-  WP04 --> WP06
-  WP04 --> WP07[WP-07 optional AI]
-  WP06 --> WP07
-  WP03 --> WP08[WP-08 hardening and operations]
-  WP04 --> WP08
-  WP05 --> WP08
-  WP06 --> WP08
-  WP07 --> WP08
+  WP05 --> WP08[WP-08 hardening and operations]
   WP08 --> WP09[WP-09 release validation]
+  WP02 -. optional later .-> WP06[WP-06 optional backend and sync]
+  WP04 -. optional later .-> WP06
+  WP06 -. optional later .-> WP07[WP-07 optional AI]
+  WP07 -. optional hardening input .-> WP08
 ~~~
 
 WP-03 and WP-04 may proceed in parallel only after WP-02 freezes their
-shared contracts. WP-05 requires both. WP-06 and WP-07 are deliberately
-outside the local MVP critical path.
+shared contracts. The local MVP critical path is WP-01 -> WP-02 ->
+WP-03/WP-04 -> WP-05 -> WP-08 -> WP-09. WP-06 and WP-07 are optional later
+branches; their controls may feed WP-08 and WP-09 when those packages are
+approved, but neither gates local MVP hardening or validation.
 
 ## Source-of-truth documentation
 
-- Product brief: ../product/product-brief.md
-- Requirements: ../product/requirements.md
-- Traceability matrix: ../product/traceability.md
-- Glossary: ../product/glossary.md
-- Work-package roadmap: ../roadmap/work-packages.md
-- Engineering governance: ../governance/engineering-governance.md
-- Risk register: ../risks/risk-register.md
-- ADR index: ../adr/README.md
-- Security and privacy baseline: ../security/security-privacy-baseline.md
-- Quality plans: ../quality/test-strategy.md
-- WP-01 acceptance: ../handoffs/wp-01-acceptance.md
-- WP-02 planning handoff: ../handoffs/wp-02-planning-handoff.md
+- [Approved WP-01 plan](wp-01-plan.md)
+- [Product brief](../product/product-brief.md)
+- [Requirements](../product/requirements.md)
+- [Traceability matrix](../product/traceability.md)
+- [Glossary](../product/glossary.md)
+- [Work-package roadmap](../roadmap/work-packages.md)
+- [Engineering governance](../governance/engineering-governance.md)
+- [Risk register](../risks/risk-register.md)
+- [ADR index](../adr/README.md)
+- [Security and privacy baseline](../security/security-privacy-baseline.md)
+- [Quality plans](../quality/test-strategy.md)
+- [WP-01 acceptance and corrective review handoff](../handoffs/wp-01-acceptance.md)
+- [WP-02 planning handoff](../handoffs/wp-02-planning-handoff.md)
 
 Subsequent work packages must update these sources rather than create
 parallel sources of truth.
@@ -173,7 +186,7 @@ complete, with no unresolved Critical or High review findings.
 
 ## Immediate next step
 
-WP-01 documentation is implemented as the baseline described in the
-WP-01 acceptance report. WP-02 planning may start from the WP-02 handoff,
-subject to independent review of WP-01 and resolution of the listed
-decision-owner and evidence gaps.
+The WP-01 corrective implementation is recorded in the acceptance report and
+is ready for independent review. WP-02 planning may use the WP-02 handoff,
+but WP-02 implementation remains blocked until the corrective review closes
+and named decision owners are assigned.

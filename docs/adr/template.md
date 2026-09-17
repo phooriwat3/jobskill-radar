@@ -1,12 +1,14 @@
 # ADR-NNNN: Title
 
-Status: Proposed  
-Date: YYYY-MM-DD  
-Owners: accountable role(s) and named person(s), if assigned  
-Deciders: approval role(s) and named person(s), if assigned  
-Target package: WP-XX  
-Related requirements: IDs and links  
+Status: Proposed
+Date: YYYY-MM-DD
+Owners: accountable role(s) and named person(s), if assigned
+Deciders: approval role(s) and named person(s), if assigned
+Target package: WP-XX
+Related requirements: IDs and links
 Related risks: IDs and links
+Related ADRs: IDs and links to related decisions
+Evidence links: ADR template/index, source-of-truth documents, experiments, and review records
 
 ## Context
 

@@ -1,7 +1,7 @@
 # Product Brief
 
-Status: Draft - WP-01 source of truth  
-Date: 2026-09-17  
+Status: Draft - WP-01 source of truth
+Date: 2026-09-17
 Owner role: Product owner (individual not yet assigned)
 
 ## Value proposition
@@ -56,6 +56,26 @@ Journey: propose a requirement or ontology change -> link evidence, risk, and
 ADR -> update permitted corpus material if needed -> run deterministic
 evaluation -> review regressions -> approve or reject the change.
 
+### J-05: Manual fallback capture
+
+When page extraction is unavailable or incomplete, the user selects the
+relevant text if possible, or chooses the manual-paste fallback and supplies
+only the intended job-ad text. The user reviews the proposed title, source
+metadata, and job text, removes unrelated content, saves the capture, and
+then inspects evidence-backed analysis. The product does not fetch the source
+URL to fill the gap, and the fallback remains available when the page
+structure changes.
+
+### J-06: Accessible evidence and data-control journey
+
+A keyboard-only or assistive-technology user invokes capture, moves through
+the preview with visible focus and programmatic labels, reviews source
+evidence, confidence, and correction states without relying on color, and
+completes save, comparison, export, and deletion. The same journey is tested
+at the approved zoom/reflow sizes with Thai, English, mixed-language, and
+long-token content. Any missing target or matrix is an open WP-02 decision,
+not an accessibility claim.
+
 ## MVP boundary
 
 ### Included
@@ -70,6 +90,8 @@ evaluation -> review regressions -> approve or reject the change.
   confidence meaning, and unique-per-job frequency.
 - User accept/reject/add/remap corrections without altering original evidence.
 - JSON and CSV export, individual/all-data deletion, and offline operation.
+- Export is the MVP data boundary; import/interchange is deferred unless a
+  separate approval and ADR/change record adds it.
 - Planned security, accessibility, and accuracy verification.
 
 ### Deferred

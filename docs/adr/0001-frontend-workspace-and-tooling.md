@@ -1,12 +1,14 @@
 # ADR-0001: Frontend Workspace and Tooling
 
-Status: Proposed  
-Date: 2026-09-17  
-Owners: Architecture owner, extension lead, dashboard lead  
-Deciders: Architecture owner and project lead; named individuals not assigned  
-Target package: WP-02  
-Related requirements: NFR-006, SEC-003, SEC-010  
+Status: Proposed
+Date: 2026-09-17
+Owners: Architecture owner, extension lead, dashboard lead
+Deciders: Architecture owner and project lead; named individuals not assigned
+Target package: WP-02
+Related requirements: NFR-006, SEC-003, SEC-010
 Related risks: R-002, R-013, R-014
+Related ADRs: [ADR-0002](0002-local-dashboard-packaging.md), [ADR-0009](0009-accessibility-target-and-matrix.md), [ADR-0010](0010-naming-and-documentation-conventions.md)
+Evidence links: [ADR template](template.md), [ADR index](README.md), [Requirements](../product/requirements.md), [Risk register](../risks/risk-register.md)
 
 ## Context
 
