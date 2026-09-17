@@ -1,110 +1,179 @@
 # JobSkillRadar Master Plan
 
-Status: Draft — initial repository baseline  
-Repository: `jobskill-radar`  
+Status: Draft - scope and governance baseline after WP-01 documentation implementation
+Repository path: C:\Projects\JobSkillRadar
+Proposed product/repository slug: jobskill-radar
 Date: 2026-09-17
+Last repository inspection: 2026-09-17
 
 ## Current baseline
 
-The repository was inspected before this plan was created. It contains no files or directories, so there are no existing implementation, documentation, configuration, or test conflicts. This plan does not claim that any feature, security control, or test is already implemented.
+The implementation-session inspection found an existing Git repository at
+C:\Projects\JobSkillRadar, on branch main, with HEAD at
+7eace60 (docs: add initial JobSkillRadar master plan). At the start of
+WP-01 implementation, git status --short returned no changes. The tracked
+baseline contained these documentation files:
+
+- docs/plans/master-plan.md
+- docs/plans/wp-01-plan.md
+- docs/prompts/wp-01/planning.md
+
+No application source, package manifest, build configuration, CI workflow,
+tests, ontology, corpus, ADR set, or risk register was observed before the
+WP-01 documentation changes. WP-01 adds documentation and governance
+artifacts only; it does not add product implementation, dependencies, or
+infrastructure.
+
+Tracked Markdown files were confirmed to be valid UTF-8 with LF line endings.
+The earlier planning report's statements that the workspace had no Git
+metadata and that the existing files were encoding-corrupted are historical
+observations that are superseded by this inspection. The approved planning
+report remains a planning record; current repository facts are recorded here
+and in the WP-01 acceptance report.
+
+The WP-01 changes are intentionally uncommitted while they are reviewed.
+Therefore, a post-change git status --short is expected to list the
+documentation changes and must not be described as a clean-worktree result.
 
 ## Product scope
 
-JobSkillRadar is a privacy-conscious tool for collecting a user's own captures of job advertisements and comparing normalized qualifications across jobs. Its central promise is evidence-backed analysis: every reported item must be traceable to a captured job and an evidence snippet, while deterministic analysis remains useful without an AI provider.
+JobSkillRadar is a privacy-conscious tool for collecting a user's own
+captures of job advertisements and comparing normalized qualifications across
+jobs. Its central promise is evidence-backed analysis: every reported item
+must be traceable to a captured job and an evidence snippet, while
+deterministic analysis remains useful without an AI provider.
 
-The initial architecture is a monorepo with a browser extension, a local web dashboard, independently testable shared analysis packages, and a modular-monolith API reserved for a later synchronization release. The system must treat captured pages and text as untrusted input and must not bypass authentication, paywalls, CAPTCHAs, robots restrictions, or other access controls.
+The initial architecture remains a proposed direction. It may contain a
+browser extension, a local dashboard, independently testable analysis
+packages, and a modular-monolith API reserved for a later synchronization
+release. The system must treat captured pages and text as untrusted input and
+must not bypass authentication, paywalls, CAPTCHAs, robots restrictions, or
+other access controls.
 
 ## Scope refinement
 
 ### MVP: local-first usable release
 
-The MVP should include:
+The MVP includes:
 
-- Manifest V3 Chrome/Edge extension with minimum permissions.
-- Automatic current-page metadata/text extraction where available, selected-text capture, and manual paste fallback.
-- Preview/edit before save, safe text rendering, duplicate warning, and local IndexedDB storage.
+- Manifest V3 Chrome/Edge capture with minimum justified permissions.
+- Current-page metadata/text extraction where available, selected-text capture,
+  and manual paste fallback.
+- Preview/edit before save, safe text rendering, duplicate warning, and local
+  IndexedDB storage.
 - Collections and captured-job management in a local dashboard.
-- Versioned bilingual Thai/English ontology with aliases and preserved distinctions between related technologies.
-- Deterministic extraction and classification for skills, experience, education, language, soft skills, work arrangement, and required/preferred signals.
-- Unique-per-job frequency calculations, confidence, evidence snippets, source-job links, and manual corrections.
-- Filters, comparison, CSV/JSON export, accessibility and responsive behavior.
-- Golden bilingual corpus and measurable accuracy evaluation methodology.
-- Security tests for hostile text, unsafe URLs, message validation, injection boundaries, and permission assumptions.
+- Versioned Thai/English ontology with aliases and preserved distinctions
+  between related technologies.
+- Deterministic classification for skills, experience, education, language,
+  soft skills, work arrangement, and required/preferred signals.
+- Unique-per-job frequencies, confidence, evidence snippets, source-job links,
+  and manual corrections.
+- Filtering, comparison, CSV/JSON export, accessibility, and responsive
+  behavior.
+- A governed bilingual corpus and measurable accuracy evaluation method.
+- Security tests for hostile text, unsafe URLs, message validation, injection
+  boundaries, and permission assumptions.
 
-The MVP should not require cloud accounts, server-side URL fetching, external AI, file uploads, telemetry, automated crawling, or PDF export.
+The MVP must not require cloud accounts, server-side URL fetching, external
+AI, file uploads, telemetry, automated crawling, or PDF export.
 
 ### Later releases
 
-After the local MVP is reliable:
-
-- WP-06: optional cloud synchronization with authentication, object authorization, PostgreSQL, deletion, and conflict handling.
-- WP-07: opt-in provider-neutral AI assistance behind schema validation, evidence checks, cost controls, and deterministic fallback.
-- WP-08: operational hardening, SBOM/scanning, incident response, backup/recovery, and release automation.
-- WP-09: representative real-world validation, cross-browser verification, store preparation, performance testing, and final release review.
-- PDF export, additional site adapters, and document upload only after their security and privacy designs are separately approved.
+- WP-06: optional cloud synchronization with authentication, object
+  authorization, PostgreSQL, deletion, and conflict handling.
+- WP-07: opt-in provider-neutral AI assistance behind schema validation,
+  evidence checks, cost controls, and deterministic fallback.
+- WP-08: operational hardening, SBOM/scanning, incident response,
+  backup/recovery, and release automation.
+- WP-09: representative real-world validation, cross-browser verification,
+  store preparation, performance testing, and final release review.
+- PDF export, additional site adapters, and document upload only after
+  separate security and privacy approval.
 
 ### Explicit exclusions
 
-Mass crawling, access-control circumvention, automatic applications, credential/private-message collection, unsupported perfect-accuracy claims, antivirus functionality, salary prediction, recruitment workflows, native mobile apps, and premature microservices are out of scope.
+Mass crawling, access-control circumvention, automatic applications,
+credential/private-message collection, unsupported perfect-accuracy claims,
+antivirus functionality, salary prediction, recruitment workflows, native
+mobile applications, and premature microservices are out of scope.
 
-## Decisions still requiring confirmation during planning
+## Decisions still requiring confirmation
 
-These are genuine design decisions, not blockers for WP-01. WP-01 should document options and recommend one with evidence:
+These are open design decisions, not reasons to expand WP-01:
 
-1. Exact frontend build framework and workspace tooling for the extension/dashboard monorepo.
-2. Exact supported Java 21 and Spring Boot 3.x versions, selected from currently supported releases.
-3. Whether the first local dashboard is a browser page bundled with the extension or a separately served local web app.
-4. Canonical local data model and migration/versioning strategy for IndexedDB.
-5. Initial ontology coverage and the annotation protocol for the bilingual golden corpus.
-6. Accuracy targets and evaluation thresholds, based on a defined, version-controlled dataset rather than arbitrary percentages.
-7. Whether synchronization is API-backed only or also supports an export/import interchange format before WP-06.
-8. Authentication mechanism for cloud sync, to be selected after the threat model and deployment assumptions are documented.
+1. Frontend language, build, package, and test tooling.
+2. Supported Java 21 and Spring Boot 3.x lines for the optional backend.
+3. Extension page versus separately served local dashboard packaging.
+4. Canonical local data model and IndexedDB migration strategy.
+5. Ontology coverage, alias governance, and bilingual annotation protocol.
+6. Accuracy targets and release thresholds after baseline measurement.
+7. Export/import interchange before optional synchronization.
+8. Cloud authentication and session model.
+9. Accessibility conformance target and browser/assistive-technology matrix.
+10. Canonical product/repository naming and documentation conventions.
 
-Assumptions until decided: local-only use is anonymous; no backend is needed for the MVP; all captured content is user-initiated; source URLs are stored as references but are not fetched by the backend; and AI is disabled by default.
+The evidence required for these decisions is recorded in the ADR set under
+docs/adr/. No option is accepted by this master plan.
 
 ## Work-package dependency map
 
-```mermaid
+~~~mermaid
 flowchart TD
-  WP01[WP-01 Discovery, scope, governance] --> WP02[WP-02 Architecture and security foundation]
-  WP02 --> WP03[WP-03 Extension capture MVP]
-  WP02 --> WP04[WP-04 Analysis core and ontology]
-  WP03 --> WP05[WP-05 Local dashboard and reports]
+  WP01[WP-01 scope and governance] --> WP02[WP-02 architecture and security]
+  WP02 --> WP03[WP-03 extension capture]
+  WP02 --> WP04[WP-04 analysis and ontology]
+  WP03 --> WP05[WP-05 local dashboard and reports]
   WP04 --> WP05
-  WP02 --> WP06[WP-06 Backend and optional sync]
+  WP02 --> WP06[WP-06 optional backend and sync]
   WP04 --> WP06
-  WP04 --> WP07[WP-07 Optional AI assistance]
+  WP04 --> WP07[WP-07 optional AI]
   WP06 --> WP07
-  WP03 --> WP08[WP-08 Security and operational readiness]
+  WP03 --> WP08[WP-08 hardening and operations]
   WP04 --> WP08
   WP05 --> WP08
   WP06 --> WP08
   WP07 --> WP08
-  WP08 --> WP09[WP-09 Release candidate and validation]
-```
+  WP08 --> WP09[WP-09 release validation]
+~~~
 
-WP-03 and WP-04 can proceed in parallel after WP-02 establishes shared contracts. WP-05 requires both. WP-06 and WP-07 are deliberately later than the deterministic/local foundation.
+WP-03 and WP-04 may proceed in parallel only after WP-02 freezes their
+shared contracts. WP-05 requires both. WP-06 and WP-07 are deliberately
+outside the local MVP critical path.
 
-## Governance and session protocol
+## Source-of-truth documentation
 
-Every work package has separate planning, implementation, and review sessions. Planning produces an approved handoff and stops before implementation. Implementation changes only the approved package, adds tests, records deviations, updates documentation and risks, and hands off to review. Review is initially independent, reports severity-classified findings with file/line references, and does not silently fix defects.
+- Product brief: ../product/product-brief.md
+- Requirements: ../product/requirements.md
+- Traceability matrix: ../product/traceability.md
+- Glossary: ../product/glossary.md
+- Work-package roadmap: ../roadmap/work-packages.md
+- Engineering governance: ../governance/engineering-governance.md
+- Risk register: ../risks/risk-register.md
+- ADR index: ../adr/README.md
+- Security and privacy baseline: ../security/security-privacy-baseline.md
+- Quality plans: ../quality/test-strategy.md
+- WP-01 acceptance: ../handoffs/wp-01-acceptance.md
+- WP-02 planning handoff: ../handoffs/wp-02-planning-handoff.md
 
-A package is complete only when acceptance criteria, tests, security verification, documentation, ADR/risk updates, and clean handoff are complete, with no unresolved Critical or High review findings.
+Subsequent work packages must update these sources rather than create
+parallel sources of truth.
 
-## Initial quality principles
+## Governance baseline
 
-- Evidence is mandatory for every reported result.
-- A normalized skill counts at most once per job.
-- Original captured text is immutable evidence; corrections are separate records.
-- Low-confidence and AI-derived items remain distinguishable.
-- Untrusted text never becomes executable instructions or privileged messages.
-- Privacy defaults to local storage, no telemetry, explicit consent for transmission, and user-controlled deletion.
-- Security documentation must distinguish designed, tested, and not-yet-verified controls.
+Every work package has separate planning, implementation, and review
+sessions. Planning produces an approved handoff and stops before
+implementation. Implementation changes only the approved package, records
+deviations, updates documentation and risks, and hands off to review. Review
+is initially independent, reports severity-classified findings with evidence,
+and does not silently fix defects.
 
-## Planned documentation set
-
-WP-01 should establish the requirements, personas, glossary, roadmap, definitions of ready/done, initial risk register, ADR template/index, and this governance baseline. WP-02 should add architecture, data flows, trust boundaries, privacy/threat models, development standards, CI gates, and proposed ADRs. Subsequent packages should update these documents rather than create parallel sources of truth.
+A package is complete only when acceptance criteria, applicable tests,
+security verification, documentation, ADR/risk updates, and handoff are
+complete, with no unresolved Critical or High review findings.
 
 ## Immediate next step
 
-Run the WP-01 planning session using `docs/prompts/wp-01/planning.md`. It must inspect this repository as the source of truth, validate the product scope, produce exact WP-01 deliverables and acceptance criteria, identify risks and dependencies, and stop before implementation.
+WP-01 documentation is implemented as the baseline described in the
+WP-01 acceptance report. WP-02 planning may start from the WP-02 handoff,
+subject to independent review of WP-01 and resolution of the listed
+decision-owner and evidence gaps.
